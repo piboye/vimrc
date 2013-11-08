@@ -5,5 +5,4 @@ piboye's vimrc
 
 Install
   
-  1. download to ~/
-  2. run ./setup.sh
+  1. run ./setup.sh
