@@ -1,5 +1,5 @@
-set tabstop=4 " ..tab=2...
-set shiftwidth=4 " ...indent=2.....
+set tabstop=4  
+set shiftwidth=4 
 set ic
 set ai
 set si
@@ -109,8 +109,13 @@ syntax on
 set tags=tags;
 set foldmethod=syntax
 set foldlevel=99
-"set background=dark
+
+set background=dark
+
 colorscheme desert
 set hlsearch
 nnoremap  <NOP>
 let g:EasyMotion_leader_key=''
+
+set expandtab 
+set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=utf-8
