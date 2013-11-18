@@ -114,8 +114,8 @@ set background=dark
 
 colorscheme desert
 set hlsearch
-nnoremap  <NOP>
-let g:EasyMotion_leader_key=''
+nnoremap '^H'  <NOP>
+let g:EasyMotion_leader_key='^H'
 
 set expandtab 
 set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=utf-8
