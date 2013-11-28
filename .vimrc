@@ -36,7 +36,7 @@ Bundle 'taglist.vim'
 Bundle 'ZenCoding.vim'
 Bundle 'css_color.vim'
 "Bundle 'snipMate.vim'
-Bundle 'Markdown.vim'
+Bundle 'http://github.com/plasticboy/vim-markdown.git'
 Bundle 'pathogen.vim'
 Bundle 'UltiSnips'
 Bundle 'Mark'
@@ -81,7 +81,7 @@ Bundle 'pydoc.vim'
 
 "js
 Bundle 'jsbeautify'
-Bundle 'javascipt.vim'
+Bundle 'http://github.com/pangloss/vim-javascript.git'
 Bundle 'JSON.vim'
 
 "html/xml
