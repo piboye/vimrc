@@ -4,7 +4,6 @@ set ic
 set ai
 set si
 
-
 let $GIT_SSL_NO_VERIFY='true'
 
 set nocompatible              " be iMproved
@@ -34,8 +33,6 @@ Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'The-NERD-Commenter'
 Bundle 'taglist.vim'
 Bundle 'ZenCoding.vim'
-Bundle 'css_color.vim'
-"Bundle 'snipMate.vim'
 Bundle 'http://github.com/plasticboy/vim-markdown.git'
 Bundle 'pathogen.vim'
 Bundle 'UltiSnips'
@@ -50,14 +47,12 @@ Bundle 'FencView.vim'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'CmdlineCompl.vim'
-Bundle 'qiushibaike'
 Bundle 'auto_mkdir'
-"Bundle 'mru'
+Bundle 'mru'
 Bundle 'EasyMotion'
 "Bundle 'statusline.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'Tabular'
-"Bundle 'Valloric/YouCompleteMe'
 "Bundle 'valgrind.vim'
 Bundle 'SuperTab'
 Bundle 'Solarized'
@@ -109,6 +104,7 @@ syntax on
 set tags=tags;
 set foldmethod=syntax
 set foldlevel=99
+set number
 
 set background=dark
 
