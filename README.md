@@ -4,7 +4,6 @@ piboye's vimrc
 piboye's vimrc
 
 ##Install
-  1. run 
-     ./setup.sh
+  1. sudo ./setup.sh
   2. get and install [astyle](http://astyle.sourceforge.net/)   
-  3. ensure js-beautiy has installed, than html and javascript fixin would failed!
+  3. ensure js-beautiy has been installed, otherwise html and javascript fixin would indent failed!
