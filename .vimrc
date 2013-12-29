@@ -12,6 +12,7 @@ filetype off                  " required!
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
@@ -22,9 +23,8 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" vim-scripts repos
-" non-GitHub repos
-"Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'Command-T'
+
 " Git repos on your local machine (i.e. when working on your own plugin)
 "Bundle 'file:///Users/gmarik/path/to/plugin'
 " ...
@@ -34,8 +34,6 @@ Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'The-NERD-Commenter'
 Bundle 'taglist.vim'
 Bundle 'ZenCoding.vim'
-Bundle 'css_color.vim'
-"Bundle 'snipMate.vim'
 Bundle 'http://github.com/plasticboy/vim-markdown.git'
 Bundle 'pathogen.vim'
 Bundle 'UltiSnips'
@@ -50,17 +48,17 @@ Bundle 'FencView.vim'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'CmdlineCompl.vim'
-Bundle 'qiushibaike'
+
 Bundle 'auto_mkdir'
-"Bundle 'mru'
+Bundle 'MRU'
 Bundle 'EasyMotion'
 "Bundle 'statusline.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'Tabular'
-"Bundle 'Valloric/YouCompleteMe'
-"Bundle 'valgrind.vim'
 Bundle 'SuperTab'
 Bundle 'Solarized'
+Bundle 'ack.vim'
+Bundle 'https://github.com/kien/ctrlp.vim'
 
 "ide
 
@@ -68,32 +66,30 @@ Bundle 'Solarized'
 Bundle 'jimenezrick/vimerl'
 
 "C++
-Bundle 'gdbvim.tar.gz'
 Bundle 'c.vim'
 Bundle 'OmniCppComplete'
 Bundle 'a.vim'
 Bundle 'autoload_cscope.vim'
+Bundle 'kchmck/vim-coffee-script'
 
 "python
-Bundle 'pyflakes'
-Bundle 'pydoc.vim'
 
 
 "js
 Bundle 'jsbeautify'
-Bundle 'http://github.com/pangloss/vim-javascript.git'
 Bundle 'JSON.vim'
 
 "html/xml
 Bundle 'html5.vim'
 Bundle 'xml.vim'
 Bundle 'matchit.zip'
-Bundle 'css.vim'
 
-"github
-Bundle 'fugitive.vim'
-
-
+"html and javascript good fixed
+Bundle "html-improved-indentation" 
+Bundle 'https://github.com/Chiel92/vim-autoformat.git'
+let g:formatprg_cs='astyle'
+let g:formatprg_args_cs="--mode=cs --style=ansi -pcHs4"
+let g:vundle_default_git_proto = 'git'
 
 filetype plugin indent on     " required!
 "
@@ -105,17 +101,34 @@ filetype plugin indent on     " required!
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle commands are not allowed.
 
+"ctrlp设置
+""
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.png,*.jpg,*.gif     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.pyc,*.png,*.jpg,*.gif  " Windows
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
+let g:ctrlp_extensions = ['funky']
+
 syntax on
-set tags=tags;
+set tags=tags,../tags,../../tags;
 set foldmethod=syntax
 set foldlevel=99
+set number
+set path=.,/usr/include,./include,./inc,./incl,../include,../inc,../incl
 
 set background=dark
 
 colorscheme desert
 set hlsearch
-nnoremap '^H'  <NOP>
-let g:EasyMotion_leader_key='^H'
+nnoremap <C-h> <NOP>
+let g:EasyMotion_leader_key='<C-h>'
 
 set expandtab 
 set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=utf-8
+let g:vimim_cloud='sougou'
+
+"for ejs template 
+au BufNewFile,BufRead *.ejs set filetype=html
+
+"source ~/cscope_maps.vim
