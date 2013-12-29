@@ -37,7 +37,6 @@ Bundle 'ZenCoding.vim'
 Bundle 'http://github.com/plasticboy/vim-markdown.git'
 Bundle 'pathogen.vim'
 Bundle 'UltiSnips'
-Bundle 'Mark'
 Bundle 'AuthorInfo'
 Bundle 'checksyntax'
 
@@ -78,14 +77,16 @@ Bundle 'kchmck/vim-coffee-script'
 "js
 Bundle 'jsbeautify'
 Bundle 'JSON.vim'
+"Bundle "pangloss/vim-javascript"
+
 
 "html/xml
 Bundle 'html5.vim'
 Bundle 'xml.vim'
 Bundle 'matchit.zip'
 
-"html and javascript good fixed
 Bundle "html-improved-indentation" 
+
 Bundle 'https://github.com/Chiel92/vim-autoformat.git'
 let g:formatprg_cs='astyle'
 let g:formatprg_args_cs="--mode=cs --style=ansi -pcHs4"
@@ -111,6 +112,7 @@ let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
 let g:ctrlp_extensions = ['funky']
 
 syntax on
+
 set tags=tags,../tags,../../tags;
 set foldmethod=syntax
 set foldlevel=99
