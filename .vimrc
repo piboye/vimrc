@@ -1,10 +1,3 @@
-set tabstop=4  
-set shiftwidth=4 
-set ic
-set ai
-set si
-
-
 let $GIT_SSL_NO_VERIFY='true'
 
 set nocompatible              " be iMproved
@@ -23,14 +16,14 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+if has('mac') 
 Bundle 'Command-T'
+endif
 
 " Git repos on your local machine (i.e. when working on your own plugin)
 "Bundle 'file:///Users/gmarik/path/to/plugin'
 " ...
 "
-
-
 Bundle 'The-NERD-Commenter'
 Bundle 'taglist.vim'
 Bundle 'ZenCoding.vim'
@@ -51,13 +44,16 @@ Bundle 'CmdlineCompl.vim'
 Bundle 'auto_mkdir'
 Bundle 'MRU'
 Bundle 'EasyMotion'
-"Bundle 'statusline.vim'
+Bundle 'statusline.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'Tabular'
 Bundle 'SuperTab'
 Bundle 'Solarized'
 Bundle 'ack.vim'
-Bundle 'https://github.com/kien/ctrlp.vim'
+"Bundle 'https://github.com/kien/ctrlp.vim'
+"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+"let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
+"let g:ctrlp_extensions = ['funky']
 
 "ide
 
@@ -88,7 +84,6 @@ Bundle 'matchit.zip'
 Bundle "html-improved-indentation" 
 
 Bundle 'https://github.com/Chiel92/vim-autoformat.git'
-let g:formatprg_cs='astyle'
 let g:formatprg_args_cs="--mode=cs --style=ansi -pcHs4"
 let g:vundle_default_git_proto = 'git'
 
@@ -107,9 +102,12 @@ filetype plugin indent on     " required!
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.png,*.jpg,*.gif     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.pyc,*.png,*.jpg,*.gif  " Windows
 
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
-let g:ctrlp_extensions = ['funky']
+
+set tabstop=4  
+set shiftwidth=4 
+set ic
+set ai
+set si
 
 syntax on
 
@@ -128,7 +126,6 @@ let g:EasyMotion_leader_key='<C-h>'
 
 set expandtab 
 set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=utf-8
-let g:vimim_cloud='sougou'
 
 "for ejs template 
 au BufNewFile,BufRead *.ejs set filetype=html
