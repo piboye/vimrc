@@ -26,6 +26,7 @@ Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Bundle 'file:///Users/gmarik/path/to/plugin'
 " ...
 "
+Bundle 'Independence'
 Bundle 'The-NERD-Commenter'
 Bundle 'taglist.vim'
 Bundle 'ZenCoding.vim'
@@ -54,10 +55,15 @@ Bundle 'Tabular'
 Bundle 'SuperTab'
 Bundle 'Solarized'
 Bundle 'ack.vim'
+Bundle 'Gundo'
+
+Bundle 'Syntastic'
+
 Bundle 'ctrlp.vim'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
-let g:ctrlp_extensions = ['funky']
+let g:ctrlp_custom_ignore = '\v\.(fcg|bin|)$'
+let g:ctrlp_extensions = ['fcg', 'bin', 'out', 'o' ]
 
 "ide
 
@@ -70,6 +76,17 @@ Bundle 'OmniCppComplete'
 Bundle 'a.vim'
 Bundle 'autoload_cscope.vim'
 
+Bundle 'Tagbar'
+nnoremap <silent> <F9> :TagbarToggle<CR>
+
+"Bundle 'lh-cpp'
+"Bundle 'CRefVim'
+
+Bundle 'DfrankUtil'
+Bundle 'vimprj'
+Bundle 'indexer.tar.gz'
+Bundle 'CCTree'
+
 "nodejs and coffe
 Bundle 'kchmck/vim-coffee-script'
 
@@ -79,7 +96,7 @@ Bundle 'kchmck/vim-coffee-script'
 "js
 "Bundle 'jsbeautify'
 "Bundle 'JSON.vim'
-"Bundle "pangloss/vim-javascript"
+"Bundle 'pangloss/vim-javascript'
 
 
 "html/xml
@@ -117,7 +134,7 @@ set si
 
 syntax on
 
-set tags=tags,../tags,../../tags;
+"set tags=tags,../tags,../../tags;
 set foldmethod=syntax
 set foldlevel=99
 set number
@@ -132,6 +149,9 @@ let g:EasyMotion_leader_key='<C-h>'
 
 set expandtab 
 set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=utf-8
+
+set backupdir=~/backup/,.
+set directory=~/backup/,.
 
 "for ejs template 
 au BufNewFile,BufRead *.ejs set filetype=html
