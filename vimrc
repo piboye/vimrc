@@ -17,7 +17,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 
-Bundle 'Command-T'
+" command-t depend ruby, it is so baddly.
+"Bundle 'Command-T'
 "if has('mac') 
 "endif
 
@@ -53,10 +54,10 @@ Bundle 'Tabular'
 Bundle 'SuperTab'
 Bundle 'Solarized'
 Bundle 'ack.vim'
-"Bundle 'https://github.com/kien/ctrlp.vim'
-"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-"let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
-"let g:ctrlp_extensions = ['funky']
+Bundle 'ctrlp.vim'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
+let g:ctrlp_extensions = ['funky']
 
 "ide
 
