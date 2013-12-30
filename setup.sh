@@ -20,6 +20,15 @@ fi
 echo "install plugin";
 vim +BundleInstall +qall
 
+
+echo "install command-t"
+( 
+  cd ~/.vim/bundle/Command-T/ruby/command-t; 
+  ruby2.0 extconf.rb;
+  make
+)
+
+
 echo "install js-beautify";
 npm install -g js-beautify
 
