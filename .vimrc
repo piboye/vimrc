@@ -36,7 +36,9 @@ Bundle 'checksyntax'
 
 "common
 Bundle 'The-NERD-tree'
-Bundle 'Conque-Shell'
+"use my conque-shell fix vimscript site bugs;
+Bundle 'piboye/Conque-Shell'
+
 Bundle 'FencView.vim'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
@@ -66,14 +68,16 @@ Bundle 'c.vim'
 Bundle 'OmniCppComplete'
 Bundle 'a.vim'
 Bundle 'autoload_cscope.vim'
+
+"nodejs and coffe
 Bundle 'kchmck/vim-coffee-script'
 
 "python
 
 
 "js
-Bundle 'jsbeautify'
-Bundle 'JSON.vim'
+"Bundle 'jsbeautify'
+"Bundle 'JSON.vim'
 "Bundle "pangloss/vim-javascript"
 
 
