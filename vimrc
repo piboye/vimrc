@@ -1,5 +1,4 @@
 let $GIT_SSL_NO_VERIFY='true'
-
 set nocompatible              " be iMproved
 filetype off                  " required!
 
@@ -9,6 +8,7 @@ call vundle#rc()
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
+let g:vundle_default_git_proto = 'https'
 
 " My bundles here:
 "
@@ -26,44 +26,55 @@ Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Bundle 'file:///Users/gmarik/path/to/plugin'
 " ...
 "
-Bundle 'Independence'
-Bundle 'The-NERD-Commenter'
-Bundle 'taglist.vim'
+"Bundle 'Independence'
+"Bundle 'The-NERD-Commenter'
+"Bundle 'taglist.vim'
+Bundle 'tComment'
 Bundle 'ZenCoding.vim'
-Bundle 'http://github.com/plasticboy/vim-markdown.git'
+Bundle 'plasticboy/vim-markdown.git'
 Bundle 'pathogen.vim'
 Bundle 'UltiSnips'
 Bundle 'AuthorInfo'
-Bundle 'checksyntax'
+"Bundle 'checksyntax'
+
+" Essetial vim plugin
+Bundle 'The-NERD-tree'
+Bundle 'EasyMotion'
+nnoremap <C-h> <NOP>
+let g:EasyMotion_leader_key='<C-h>'
+Bundle 'ctrlp.vim'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
+let g:ctrlp_custom_ignore = '\v\.(fcg|bin|)$'
+let g:ctrlp_extensions = ['fcg', 'bin', 'out', 'o' ]
+
 
 "common
-Bundle 'The-NERD-tree'
+
 "use my conque-shell fix vimscript site bugs;
 Bundle 'piboye/Conque-Shell'
 
+"process file encode
 Bundle 'FencView.vim'
+
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'CmdlineCompl.vim'
 
 Bundle 'auto_mkdir'
 Bundle 'MRU'
-Bundle 'EasyMotion'
+Bundle 'Gundo'
 Bundle 'statusline.vim'
 Bundle 'Lokaltog/vim-powerline'
+
+Bundle 'ack.vim'
+
 Bundle 'Tabular'
 Bundle 'SuperTab'
 Bundle 'Solarized'
-Bundle 'ack.vim'
-Bundle 'Gundo'
+Bundle 'tpope/vim-surround'
 
-Bundle 'Syntastic'
 
-Bundle 'ctrlp.vim'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
-let g:ctrlp_custom_ignore = '\v\.(fcg|bin|)$'
-let g:ctrlp_extensions = ['fcg', 'bin', 'out', 'o' ]
 
 "ide
 
@@ -72,11 +83,21 @@ Bundle 'jimenezrick/vimerl'
 
 "C++
 Bundle 'c.vim'
-Bundle 'OmniCppComplete'
 Bundle 'a.vim'
 Bundle 'autoload_cscope.vim'
+"Bundle 'cpp.vim'
+"Bundle 'stl.vim'
+
+Bundle 'OmniCppComplete'
+
+if has("mac")
+  Bundle 'Valloric/YouCompleteMe'
+endif
+Bundle 'Syntastic'
+
 
 Bundle 'Tagbar'
+
 nnoremap <silent> <F9> :TagbarToggle<CR>
 
 "Bundle 'lh-cpp'
@@ -108,7 +129,6 @@ Bundle "html-improved-indentation"
 
 Bundle 'https://github.com/Chiel92/vim-autoformat.git'
 let g:formatprg_args_cs="--mode=cs --style=ansi -pcHs4"
-let g:vundle_default_git_proto = 'git'
 
 filetype plugin indent on     " required!
 "
@@ -134,7 +154,7 @@ set si
 
 syntax on
 
-"set tags=tags,../tags,../../tags;
+set tags=tags,../tags,../../tags;
 set foldmethod=syntax
 set foldlevel=99
 set number
@@ -144,8 +164,6 @@ set background=dark
 
 colorscheme desert
 set hlsearch
-nnoremap <C-h> <NOP>
-let g:EasyMotion_leader_key='<C-h>'
 
 set expandtab 
 set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=utf-8
