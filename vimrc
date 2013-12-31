@@ -42,11 +42,20 @@ Bundle 'The-NERD-tree'
 Bundle 'EasyMotion'
 nnoremap <C-h> <NOP>
 let g:EasyMotion_leader_key='<C-h>'
+
+"ctrlp设置
 Bundle 'ctrlp.vim'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
-let g:ctrlp_custom_ignore = '\v\.(fcg|bin|)$'
-let g:ctrlp_extensions = ['fcg', 'bin', 'out', 'o' ]
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn|log|bin|tmp|temp)$',
+  \ 'file': '\v\.(fcg|bin|out|beam|pyc|o|so|a|jar|log|bak|docx|jpeg|gif|png|jpg|tar|gz|tgz|zip|swp)$',
+  \ 'link': '',
+  \ }
+let g:ctrlp_extensions = ['cpp', 'c', 'h', 'hpp', 'js', 'py', 'erl', 'sh', 'go']
+let g:ctrlp_use_caching = 1
+let g:ctrlp_clear_cache_on_exit = 0 
+set wildignore+=*~
+"set wildignore+=*.so,*.swp,*.zip,*.tar,*.tar.gz,*.tgz,*.pyc,*.png,*.jpg,*.gif,*.jpeg,*.docx,*.o,*.bak,*.log,*.bin,*.fcg,*~ 
+
 
 
 "common
@@ -91,8 +100,9 @@ Bundle 'OmniCppComplete'
 Bundle 'neocomplcache'
 Bundle "AutoComplPop"
 
-" support c++ stl 
-Bundle "clang-complete"
+if has("mac")
+    Bundle "clang-complete"
+endif
 Bundle 'Syntastic'
 
 " YCM baddly, build too complex and confuse.
@@ -142,10 +152,6 @@ filetype plugin indent on     " required!
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle commands are not allowed.
 
-"ctrlp设置
-""
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.png,*.jpg,*.gif     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.pyc,*.png,*.jpg,*.gif  " Windows
 
 
 set tabstop=4  
