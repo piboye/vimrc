@@ -33,12 +33,38 @@ Bundle 'tComment'
 Bundle 'ZenCoding.vim'
 Bundle 'plasticboy/vim-markdown.git'
 Bundle 'pathogen.vim'
-Bundle 'UltiSnips'
+
 Bundle 'AuthorInfo'
-"Bundle 'checksyntax'
+
+Bundle 'Shougo/neosnippet'
+Bundle 'neocomplcache'
+Bundle 'Shougo/neosnippet-snippets'
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+let g:neosnippet#enable_snipmate_compatibility = 1
+"Bundle 'honza/vim-snippets'
+"let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+
 
 " Essetial vim plugin
 Bundle 'The-NERD-tree'
+Bundle 'jistr/vim-nerdtree-tabs'
+
 Bundle 'EasyMotion'
 nnoremap <C-h> <NOP>
 let g:EasyMotion_leader_key='<C-h>'
@@ -50,11 +76,12 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(fcg|bin|out|beam|pyc|o|so|a|jar|log|bak|docx|jpeg|gif|png|jpg|tar|gz|tgz|zip|swp)$',
   \ 'link': '',
   \ }
-let g:ctrlp_extensions = ['cpp', 'c', 'h', 'hpp', 'js', 'py', 'erl', 'sh', 'go']
+let g:ctrlp_extensions = ['quickfix',  'undo', 'changes', 'tag', 'buffertag', 'dir']
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 0 
 set wildignore+=*~
 "set wildignore+=*.so,*.swp,*.zip,*.tar,*.tar.gz,*.tgz,*.pyc,*.png,*.jpg,*.gif,*.jpeg,*.docx,*.o,*.bak,*.log,*.bin,*.fcg,*~ 
+let g:ctrlp_tabpage_position = 'ac'
 
 
 
@@ -67,23 +94,22 @@ Bundle 'piboye/Conque-Shell'
 Bundle 'FencView.vim'
 
 Bundle 'L9'
-Bundle 'FuzzyFinder'
 Bundle 'CmdlineCompl.vim'
 
 Bundle 'auto_mkdir'
-Bundle 'MRU'
+"Bundle 'MRU'
 Bundle 'mru.vim'
 Bundle 'Gundo'
 Bundle 'statusline.vim'
 Bundle 'Lokaltog/vim-powerline'
 
 Bundle 'ack.vim'
+Bundle 'EasyGrep'
 
 Bundle 'Tabular'
 Bundle 'SuperTab'
 Bundle 'Solarized'
 Bundle 'tpope/vim-surround'
-
 
 
 "ide
@@ -97,7 +123,6 @@ Bundle 'a.vim'
 Bundle 'autoload_cscope.vim'
 
 Bundle 'OmniCppComplete'
-Bundle 'neocomplcache'
 Bundle "AutoComplPop"
 
 if has("mac")
@@ -113,13 +138,9 @@ Bundle 'Tagbar'
 
 nnoremap \t :TagbarToggle<CR>
 
-"Bundle 'lh-cpp'
-"Bundle 'CRefVim'
-
 Bundle 'DfrankUtil'
 Bundle 'vimprj'
 Bundle 'indexer.tar.gz'
-Bundle 'CCTree'
 
 "nodejs and coffe
 Bundle 'kchmck/vim-coffee-script'
@@ -182,4 +203,8 @@ set directory=~/backup/,.
 "for ejs template 
 au BufNewFile,BufRead *.ejs set filetype=html
 "let g:ycm_global_ycm_extra_conf='~/vimrc/.ycm_extra_conf.py'
-"source ~/cscope_maps.vim
+
+"you spectial define
+if filereadable("~/my.vimrc")
+    source ~/my.vimrc
+endif
