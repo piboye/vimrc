@@ -63,6 +63,7 @@ Bundle 'CmdlineCompl.vim'
 
 Bundle 'auto_mkdir'
 Bundle 'MRU'
+Bundle 'mru.vim'
 Bundle 'Gundo'
 Bundle 'statusline.vim'
 Bundle 'Lokaltog/vim-powerline'
@@ -85,20 +86,22 @@ Bundle 'jimenezrick/vimerl'
 Bundle 'c.vim'
 Bundle 'a.vim'
 Bundle 'autoload_cscope.vim'
-"Bundle 'cpp.vim'
-"Bundle 'stl.vim'
 
 Bundle 'OmniCppComplete'
+Bundle 'neocomplcache'
+Bundle "AutoComplPop"
 
-if has("mac")
-  Bundle 'Valloric/YouCompleteMe'
-endif
+" support c++ stl 
+Bundle "clang-complete"
 Bundle 'Syntastic'
+
+" YCM baddly, build too complex and confuse.
+"Bundle 'Valloric/YouCompleteMe'
 
 
 Bundle 'Tagbar'
 
-nnoremap <silent> <F9> :TagbarToggle<CR>
+nnoremap \t :TagbarToggle<CR>
 
 "Bundle 'lh-cpp'
 "Bundle 'CRefVim'
@@ -126,7 +129,6 @@ Bundle 'xml.vim'
 Bundle 'matchit.zip'
 
 Bundle "html-improved-indentation" 
-
 Bundle 'https://github.com/Chiel92/vim-autoformat.git'
 let g:formatprg_args_cs="--mode=cs --style=ansi -pcHs4"
 
@@ -173,5 +175,5 @@ set directory=~/backup/,.
 
 "for ejs template 
 au BufNewFile,BufRead *.ejs set filetype=html
-
+"let g:ycm_global_ycm_extra_conf='~/vimrc/.ycm_extra_conf.py'
 "source ~/cscope_maps.vim
