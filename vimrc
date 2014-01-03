@@ -15,7 +15,6 @@ let g:vundle_default_git_proto = 'https'
 " original repos on GitHub
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 " command-t depend ruby, it is so baddly.
 "Bundle 'Command-T'
@@ -124,6 +123,9 @@ Bundle 'autoload_cscope.vim'
 
 Bundle 'OmniCppComplete'
 Bundle "AutoComplPop"
+
+"WebDav
+Bundle 'Zopedav'
 
 if has("mac")
     Bundle "clang-complete"
