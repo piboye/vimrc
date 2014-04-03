@@ -128,6 +128,8 @@ Bundle "AutoComplPop"
 
 set complete-=i   " remove complete from include for auto complete fast
 set path=**
+"WebDav
+Bundle 'Zopedav'
 
 if has("mac")
     Bundle "clang-complete"
