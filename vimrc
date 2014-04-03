@@ -15,7 +15,7 @@ let g:vundle_default_git_proto = 'https'
 " original repos on GitHub
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 " command-t depend ruby, it is so baddly.
 "Bundle 'Command-T'
@@ -89,6 +89,7 @@ let g:ctrlp_tabpage_position = 'ac'
 
 "use my conque-shell fix vimscript site bugs;
 Bundle 'piboye/Conque-Shell'
+Bundle 'Vdebug'
 
 "process file encode
 Bundle 'FencView.vim'
@@ -125,6 +126,9 @@ Bundle 'autoload_cscope.vim'
 Bundle 'OmniCppComplete'
 Bundle "AutoComplPop"
 
+set complete-=i   " remove complete from include for auto complete fast
+set path=**
+
 if has("mac")
     Bundle "clang-complete"
 endif
@@ -155,11 +159,11 @@ Bundle 'kchmck/vim-coffee-script'
 
 
 "html/xml
-Bundle 'html5.vim'
+"Bundle 'html5.vim'
 Bundle 'xml.vim'
 Bundle 'matchit.zip'
 
-Bundle "html-improved-indentation" 
+"Bundle "html-improved-indentation" 
 Bundle 'https://github.com/Chiel92/vim-autoformat.git'
 let g:formatprg_args_cs="--mode=cs --style=ansi -pcHs4"
 
@@ -181,9 +185,11 @@ set ic
 set ai
 set si
 
+set nocompatible
+set backspace=indent,eol,start
 syntax on
 
-set tags=tags,../tags,../../tags;
+set tags=tags,../tags,../../tags;../../../tags;../../../../tags
 set foldmethod=syntax
 set foldlevel=99
 set number
@@ -204,7 +210,21 @@ set directory=~/backup/,.
 au BufNewFile,BufRead *.ejs set filetype=html
 "let g:ycm_global_ycm_extra_conf='~/vimrc/.ycm_extra_conf.py'
 
+"source ~/my.vimrc
 "you spectial define
-if filereadable("~/my.vimrc")
+if filereadable($VIMRUNTIME . "/my.vimrc")
     source ~/my.vimrc
 endif
+augroup filetype
+    autocmd! BufRead,BufNewFile BUILD set filetype=blade
+augroup end
+
+"blade support
+function! Blade(...)
+    let l:old_makeprg = &makeprg
+    setlocal makeprg=blade
+    execute "make " . join(a:000)
+    let &makeprg=old_makeprg
+endfunction
+ 
+command! -complete=dir -nargs=* Blade call Blade('<args>')
