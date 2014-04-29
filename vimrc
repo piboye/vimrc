@@ -67,7 +67,8 @@ Bundle 'jistr/vim-nerdtree-tabs'
 
 Bundle 'EasyMotion'
 nnoremap <C-h> <NOP>
-let g:EasyMotion_leader_key='<C-h>'
+let g:EasyMotion_leader_key='C-h'
+
 
 "ctrlp设置
 Bundle 'ctrlp.vim'
@@ -78,10 +79,17 @@ let g:ctrlp_custom_ignore = {
   \ }
 let g:ctrlp_extensions = ['quickfix',  'undo', 'changes', 'tag', 'buffertag', 'dir']
 let g:ctrlp_use_caching = 1
-let g:ctrlp_clear_cache_on_exit = 0 
+let g:ctrlp_clear_cache_on_exit = 1 
 set wildignore+=*~
 "set wildignore+=*.so,*.swp,*.zip,*.tar,*.tar.gz,*.tgz,*.pyc,*.png,*.jpg,*.gif,*.jpeg,*.docx,*.o,*.bak,*.log,*.bin,*.fcg,*~ 
 let g:ctrlp_tabpage_position = 'ac'
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 
 
 
@@ -123,7 +131,8 @@ Bundle 'c.vim'
 Bundle 'a.vim'
 Bundle 'autoload_cscope.vim'
 
-"Bundle 'OmniCppComplete' " this confict to neocomplcache
+" this confict to neocomplcache
+Bundle 'OmniCppComplete' 
 Bundle "AutoComplPop"
 
 set complete-=i   " remove complete from include for auto complete fast
