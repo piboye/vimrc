@@ -67,7 +67,7 @@ Bundle 'jistr/vim-nerdtree-tabs'
 
 Bundle 'EasyMotion'
 nnoremap <C-h> <NOP>
-let g:EasyMotion_leader_key='C-h'
+let g:EasyMotion_leader_key='<C-h>'
 
 
 "ctrlp设置
@@ -129,6 +129,7 @@ Bundle 'jimenezrick/vimerl'
 "C++
 Bundle 'c.vim'
 Bundle 'a.vim'
+"Bundle 'stlrefvim'
 Bundle 'autoload_cscope.vim'
 
 " this confict to neocomplcache
