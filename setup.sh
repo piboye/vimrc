@@ -7,6 +7,8 @@ else
 fi
 
 ln -s  $(pwd)/vimrc ~/.vimrc
+cp ./neocomp.vim ~/
+
 
 if ! [ -d ~/.vim/bundle/vundle ]
 then

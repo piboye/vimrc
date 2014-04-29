@@ -38,6 +38,8 @@ Bundle 'AuthorInfo'
 
 Bundle 'Shougo/neosnippet'
 Bundle 'neocomplcache'
+source ~/neocomp.vim
+
 Bundle 'Shougo/neosnippet-snippets'
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -129,12 +131,24 @@ Bundle 'jimenezrick/vimerl'
 "C++
 Bundle 'c.vim'
 Bundle 'a.vim'
-"Bundle 'stlrefvim'
+Bundle 'stlrefvim'
 Bundle 'autoload_cscope.vim'
 
 " this confict to neocomplcache
 Bundle 'OmniCppComplete' 
-Bundle "AutoComplPop"
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr = 1 " 显示函数参数列表
+let OmniCpp_MayCompleteDot = 1   " 输入 .  后自动补全
+let OmniCpp_MayCompleteArrow = 1 " 输入 -> 后自动补全
+let OmniCpp_MayCompleteScope = 1 " 输入 :: 后自动补全
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" 自动关闭补全窗口
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=menuone,menu,longest
+
+"Bundle "AutoComplPop"
 
 set complete-=i   " remove complete from include for auto complete fast
 set path=**
@@ -191,6 +205,7 @@ filetype plugin indent on     " required!
 
 
 
+set autoindent
 set tabstop=4  
 set shiftwidth=4 
 set ic
@@ -232,6 +247,7 @@ if has("cscope")
   if filereadable("cscope.out")
       cs add cscope.out
   endif
+  set cscopequickfix=s-,c-,d-,i-,t-,e-
   set csverb
 
     nmap <C-k>s :cs find s <C-R>=expand("<cword>")<CR><CR>
