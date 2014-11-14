@@ -35,6 +35,7 @@ Bundle 'plasticboy/vim-markdown.git'
 Bundle 'pathogen.vim'
 
 Bundle 'AuthorInfo'
+Bundle 'DoxygenToolkit.vim'
 
 Bundle 'Shougo/neosnippet'
 Bundle 'neocomplcache'
@@ -100,6 +101,9 @@ endif
 "use my conque-shell fix vimscript site bugs;
 Bundle 'piboye/Conque-Shell'
 Bundle 'Vdebug'
+
+"自动识别终端编码
+let &termencoding = substitute($LC_ALL, "[a-zA-Z_-]*\.", "", "")
 
 "process file encode
 Bundle 'FencView.vim'
