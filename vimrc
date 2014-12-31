@@ -75,6 +75,9 @@ let g:EasyMotion_leader_key='<C-h>'
 
 "ctrlp设置
 Bundle 'ctrlp.vim'
+let g:ctrlp_lazy_update = 100
+let g:ctrlp_root_markers = ['.prj']
+let g:ctrlp_working_path_mode = 'cr'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn|log|bin|tmp|temp)$',
   \ 'file': '\v\.(fcg|bin|out|beam|pyc|o|so|a|jar|log|bak|docx|jpeg|gif|png|jpg|tar|gz|tgz|zip|swp)$',
@@ -88,10 +91,10 @@ set wildignore+=*~
 let g:ctrlp_tabpage_position = 'ac'
 if executable('ag')
   " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
+  "set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
 
@@ -102,11 +105,14 @@ endif
 Bundle 'piboye/Conque-Shell'
 Bundle 'Vdebug'
 
-"自动识别终端编码
-let &termencoding = substitute($LC_ALL, "[a-zA-Z_-]*\.", "", "")
-
 "process file encode
 Bundle 'FencView.vim'
+
+"自动识别终端编码
+let &termencoding = substitute($LC_ALL, "[a-zA-Z_-]*\.", "", "")
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
+set encoding=utf-8
 
 Bundle 'L9'
 Bundle 'CmdlineCompl.vim'
@@ -210,8 +216,10 @@ filetype plugin indent on     " required!
 
 
 set autoindent
+set smarttab 
 set tabstop=4  
 set shiftwidth=4 
+set expandtab
 set ic
 set ai
 set si
@@ -281,5 +289,7 @@ function! Blade(...)
     execute "make " . join(a:000)
     let &makeprg=old_makeprg
 endfunction
+
+set autochdir
  
 command! -complete=dir -nargs=* Blade call Blade('<args>')
