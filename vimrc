@@ -69,21 +69,33 @@ Bundle 'The-NERD-tree'
 Bundle 'jistr/vim-nerdtree-tabs'
 
 Bundle 'EasyMotion'
-nnoremap <C-h> <NOP>
 let g:EasyMotion_leader_key='<C-h>'
+let g:EasyMotion_smartcase = 1 
+map f <C-h>f
+map F <C-h>F
+map t <C-h>t
+map T <C-h>T
+"map w <C-;>w
+"map W <C-;>W
+"map B <C-;>B
+"map b <C-;>b
+"map e <C-;>e
+"map E <C-;>E
 
 
 "ctrlp设置
 Bundle 'ctrlp.vim'
 let g:ctrlp_lazy_update = 100
-let g:ctrlp_root_markers = ['.prj']
+let g:ctrlp_root_markers = ['.vimprj','.prj', '.git']
 let g:ctrlp_working_path_mode = 'cr'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn|log|bin|tmp|temp)$',
   \ 'file': '\v\.(fcg|bin|out|beam|pyc|o|so|a|jar|log|bak|docx|jpeg|gif|png|jpg|tar|gz|tgz|zip|swp)$',
   \ 'link': '',
   \ }
-let g:ctrlp_extensions = ['quickfix',  'undo', 'changes', 'tag', 'buffertag', 'dir']
+"let g:ctrlp_extensions = ['dir', 'quickfix',  'undo', 'changes', 'tag', 'buffertag']
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
+                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 1 
 set wildignore+=*~
@@ -142,7 +154,6 @@ Bundle 'jimenezrick/vimerl'
 Bundle 'c.vim'
 Bundle 'a.vim'
 Bundle 'stlrefvim'
-Bundle 'autoload_cscope.vim'
 
 " this confict to neocomplcache
 Bundle 'OmniCppComplete' 
@@ -158,7 +169,7 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest
 
-"Bundle "AutoComplPop"
+Bundle "AutoComplPop"
 
 set complete-=i   " remove complete from include for auto complete fast
 set path=**
@@ -168,6 +179,7 @@ Bundle 'Zopedav'
 if has("mac")
     Bundle "clang-complete"
 endif
+
 Bundle 'Syntastic'
 
 " YCM baddly, build too complex and confuse.
@@ -178,7 +190,8 @@ Bundle 'Tagbar'
 
 nnoremap \t :TagbarToggle<CR>
 
-Bundle 'DfrankUtil'
+"depend by vimprj
+Bundle 'DfrankUtil' 
 Bundle 'vimprj'
 Bundle 'indexer.tar.gz'
 
@@ -218,6 +231,7 @@ filetype plugin indent on     " required!
 set autoindent
 set smarttab 
 set tabstop=4  
+set softtabstop=4
 set shiftwidth=4 
 set expandtab
 set ic
@@ -226,6 +240,7 @@ set si
 
 set nocompatible
 set backspace=indent,eol,start
+syntax enable
 syntax on
 
 set tags=tags,../tags,../../tags;../../../tags;../../../../tags
@@ -236,14 +251,21 @@ set path=.,/usr/include,./include,./inc,./incl,../include,../inc,../incl
 
 set background=dark
 
-colorscheme desert
+Bundle 'tomasr/molokai.git'
+Bundle 'solarized'
+let g:rehash256 = 1
+"colorscheme desert
+colorscheme molokai
+"colorscheme solarized
+
 set hlsearch
 
-set expandtab 
 set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=utf-8
 
 set backupdir=~/backup/,.
 set directory=~/backup/,.
+
+
 
 "for ejs template 
 au BufNewFile,BufRead *.ejs set filetype=html
@@ -255,13 +277,8 @@ if has("cscope")
   set csto=1
   set cst
   set nocsverb
-  " add any database in current directory
-  if filereadable("cscope.out")
-      cs add cscope.out
-  endif
   set cscopequickfix=s-,c-,d-,i-,t-,e-
   set csverb
-
     nmap <C-k>s :cs find s <C-R>=expand("<cword>")<CR><CR>
     nmap <C-k>g :cs find g <C-R>=expand("<cword>")<CR><CR>
     nmap <C-k>c :cs find c <C-R>=expand("<cword>")<CR><CR>
@@ -270,7 +287,26 @@ if has("cscope")
     nmap <C-k>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
     nmap <C-k>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
     nmap <C-k>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+"auto load cscope from root dir
+function! LoadCscope()
+    let cur_dir = expand('%:p:h')
+    let db = findfile("cscope.out", cur_dir . ";")
+    if (!empty(db))
+        let path = strpart(db, 0, match(db, "/cscope.out$"))
+        set nocscopeverbose " suppress 'duplicate connection' error
+        exe "cs add " . db . " " . path
+        set cscopeverbose
+    endif
+endfunction
+command LoadCscope call LoadCscope()
+
+"au BufEnter /* call LoadCscope()
+call LoadCscope()
+
 endif
+
+"set autochdir
+
 
 "you spectial define
 if filereadable(expand("~/my.vimrc"))
@@ -289,7 +325,8 @@ function! Blade(...)
     execute "make " . join(a:000)
     let &makeprg=old_makeprg
 endfunction
+set makeprg=blade\ build
+nnoremap <F4> :make!<cr>
 
-set autochdir
  
 command! -complete=dir -nargs=* Blade call Blade('<args>')
