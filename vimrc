@@ -17,18 +17,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 
-" command-t depend ruby, it is so baddly.
-"Bundle 'Command-T'
-"if has('mac') 
-"endif
-
-" Git repos on your local machine (i.e. when working on your own plugin)
-"Bundle 'file:///Users/gmarik/path/to/plugin'
-" ...
-"
 "Bundle 'Independence'
 "Bundle 'The-NERD-Commenter'
-"Bundle 'taglist.vim'
 Bundle 'tComment'
 Bundle 'ZenCoding.vim'
 Bundle 'plasticboy/vim-markdown.git'
@@ -37,9 +27,25 @@ Bundle 'pathogen.vim'
 Bundle 'AuthorInfo'
 Bundle 'DoxygenToolkit.vim'
 
-Bundle 'Shougo/neosnippet'
-Bundle 'neocomplcache'
-source ~/neocomp.vim
+if has("mac")
+    Bundle "clang-complete"
+    Bundle 'Valloric/YouCompleteMe'
+    "开启tag 补全
+    let g:ycm_collect_identifiers_from_tags_files = 1  
+
+else
+    Bundle 'Shougo/neosnippet'
+    Bundle 'neocomplcache'
+    source ~/neocomp.vim
+endif
+
+Bundle 'majutsushi/tagbar'
+
+"去掉尾部空白
+Bundle 'bronson/vim-trailing-whitespace'
+
+" 赋值语句对齐
+Bundle 'junegunn/vim-easy-align'
 
 Bundle 'Shougo/neosnippet-snippets'
 " Plugin key-mappings.
@@ -130,12 +136,15 @@ Bundle 'L9'
 Bundle 'CmdlineCompl.vim'
 
 Bundle 'auto_mkdir'
-"Bundle 'MRU'
 Bundle 'mru.vim'
 Bundle 'Gundo'
 Bundle 'statusline.vim'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
+Bundle 'powerline/powerline'
+"let g:airline_powerline_fonts=1
 
+Bundle 'kshenoy/vim-signature'
+Bundle 'terryma/vim-expand-region'
 Bundle 'ack.vim'
 Bundle 'EasyGrep'
 
@@ -143,6 +152,9 @@ Bundle 'Tabular'
 Bundle 'SuperTab'
 Bundle 'Solarized'
 Bundle 'tpope/vim-surround'
+
+Bundle 'vim-ctrlspace'
+"let g:ctrlspace_default_mapping_key="<C->"
 
 
 "ide
@@ -176,17 +188,13 @@ set path=**
 "WebDav
 Bundle 'Zopedav'
 
-if has("mac")
-    Bundle "clang-complete"
-endif
 
-Bundle 'Syntastic'
+Bundle 'scrooloose/syntastic'
 
 " YCM baddly, build too complex and confuse.
 "Bundle 'Valloric/YouCompleteMe'
 
 
-Bundle 'Tagbar'
 
 nnoremap \t :TagbarToggle<CR>
 
@@ -252,9 +260,7 @@ set path=.,/usr/include,./include,./inc,./incl,../include,../inc,../incl
 set background=dark
 
 Bundle 'tomasr/molokai.git'
-Bundle 'solarized'
 let g:rehash256 = 1
-"colorscheme desert
 colorscheme molokai
 "colorscheme solarized
 
