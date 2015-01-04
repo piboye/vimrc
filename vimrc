@@ -103,7 +103,7 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_use_caching = 1
-let g:ctrlp_clear_cache_on_exit = 1 
+let g:ctrlp_clear_cache_on_exit =  0 
 set wildignore+=*~
 "set wildignore+=*.so,*.swp,*.zip,*.tar,*.tar.gz,*.tgz,*.pyc,*.png,*.jpg,*.gif,*.jpeg,*.docx,*.o,*.bak,*.log,*.bin,*.fcg,*~ 
 let g:ctrlp_tabpage_position = 'ac'
@@ -121,6 +121,8 @@ endif
 
 "use my conque-shell fix vimscript site bugs;
 Bundle 'piboye/Conque-Shell'
+Bundle 'Shougo/vimproc.vim'
+
 Bundle 'Vdebug'
 
 "process file encode
@@ -257,12 +259,15 @@ set foldlevel=99
 set number
 set path=.,/usr/include,./include,./inc,./incl,../include,../inc,../incl
 
-set background=dark
+"set background=dark
 
 Bundle 'tomasr/molokai.git'
 let g:rehash256 = 1
-colorscheme molokai
+colorscheme desert
+"colorscheme molokai
 "colorscheme solarized
+
+set t_Co=256
 
 set hlsearch
 
@@ -311,7 +316,7 @@ call LoadCscope()
 
 endif
 
-"set autochdir
+set autochdir
 
 
 "you spectial define

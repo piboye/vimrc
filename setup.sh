@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
-if [ -L ~/.vimrc ] 
+if [ -L ~/.vimrc ]
 then
     rm ~/.vimrc
 else
     mv ~/.vimrc vimrc_bak_$(whoami)_$(date +%Y%m%d)
 fi
 
+mv ~/.tmux.conf tmux_conf_bak_$(whoami)_$(date +%Y%m%d)
+
 ln -s  $(pwd)/vimrc ~/.vimrc
+
+ln -s  $(pwd)/tmux.conf ~/.tmux.conf
 cp ./neocomp.vim ~/
 
 
