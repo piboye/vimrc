@@ -11,6 +11,9 @@ mv ~/.tmux.conf tmux_conf_bak_$(whoami)_$(date +%Y%m%d)
 ln -s  $(pwd)/vimrc ~/.vimrc
 
 ln -s  $(pwd)/tmux.conf ~/.tmux.conf
+ln -s  $(pwd)/wgetrc ~/.wgetrc
+ln -s  $(pwd)/gitconfig ~/.gitconfig
+
 cp ./neocomp.vim ~/
 
 
