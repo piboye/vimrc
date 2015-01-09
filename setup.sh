@@ -16,6 +16,13 @@ ln -s  $(pwd)/gitconfig ~/.gitconfig
 
 cp ./neocomp.vim ~/
 
+if ! [ -d ~/bin ]
+then
+    mkdir -p ~/bin/
+fi
+chmod a+x cpplint.py
+cp cpplint.py ~/bin/
+
 
 if ! [ -d ~/.vim/bundle/vundle ]
 then
@@ -23,6 +30,7 @@ then
     mkdir -p ~/.vim/bundle/
     git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 fi
+
 
 echo "install plugin";
 vim +BundleInstall +BundleClean +qall

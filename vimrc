@@ -1,5 +1,7 @@
 let $GIT_SSL_NO_VERIFY='true'
+
 set nocompatible              " be iMproved
+
 filetype off                  " required!
 
 set rtp+=~/.vim/bundle/vundle/
@@ -13,12 +15,11 @@ let g:vundle_default_git_proto = 'https'
 " My bundles here:
 "
 " original repos on GitHub
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 
-"Bundle 'Independence'
-"Bundle 'The-NERD-Commenter'
+"Bundle 'exvim'
+
+Bundle 'tpope/vim-fugitive'
+
 Bundle 'tComment'
 Bundle 'ZenCoding.vim'
 Bundle 'plasticboy/vim-markdown.git'
@@ -48,6 +49,7 @@ Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'junegunn/vim-easy-align'
 
 Bundle 'Shougo/neosnippet-snippets'
+
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -66,7 +68,7 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 let g:neosnippet#enable_snipmate_compatibility = 1
-"Bundle 'honza/vim-snippets'
+
 "let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
 
@@ -91,37 +93,37 @@ map T <C-h>T
 
 "ctrlp设置
 Bundle 'ctrlp.vim'
+Bundle 'tacahiroy/ctrlp-funky'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:100'
 let g:ctrlp_lazy_update = 100
 let g:ctrlp_root_markers = ['.vimprj','.prj', '.git']
-let g:ctrlp_working_path_mode = 'cr'
+let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn|log|bin|tmp|temp)$',
   \ 'file': '\v\.(fcg|bin|out|beam|pyc|o|so|a|jar|log|bak|docx|jpeg|gif|png|jpg|tar|gz|tgz|zip|swp)$',
   \ 'link': '',
   \ }
-"let g:ctrlp_extensions = ['dir', 'quickfix',  'undo', 'changes', 'tag', 'buffertag']
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
+let g:ctrlp_extensions = ['funky', 'tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit =  0 
-set wildignore+=*~
 "set wildignore+=*.so,*.swp,*.zip,*.tar,*.tar.gz,*.tgz,*.pyc,*.png,*.jpg,*.gif,*.jpeg,*.docx,*.o,*.bak,*.log,*.bin,*.fcg,*~ 
 let g:ctrlp_tabpage_position = 'ac'
 if executable('ag')
   " Use Ag over Grep
-  "set grepprg=ag\ --nogroup\ --nocolor
+  set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
+let g:ctrlp_funky_matchtype = 'path'
 
-
+set wildignore+=*~
 
 "common
 
 "use my conque-shell fix vimscript site bugs;
 Bundle 'piboye/Conque-Shell'
-Bundle 'Shougo/vimproc.vim'
 
 Bundle 'Vdebug'
 
@@ -139,7 +141,10 @@ Bundle 'CmdlineCompl.vim'
 
 Bundle 'auto_mkdir'
 Bundle 'mru.vim'
-Bundle 'Gundo'
+Bundle 'mbbill/undotree'
+Bundle 'CRefVim'
+Bundle 'visincr'
+Bundle 'showmarks'
 Bundle 'statusline.vim'
 Bundle 'bling/vim-airline'
 Bundle 'powerline/powerline'
@@ -155,7 +160,8 @@ Bundle 'SuperTab'
 Bundle 'Solarized'
 Bundle 'tpope/vim-surround'
 
-Bundle 'vim-ctrlspace'
+
+"Bundle 'vim-ctrlspace'
 "let g:ctrlspace_default_mapping_key="<C->"
 
 
@@ -166,7 +172,8 @@ Bundle 'jimenezrick/vimerl'
 
 "C++
 Bundle 'c.vim'
-Bundle 'a.vim'
+"Bundle 'a.vim'
+Bundle 'FSwitch'
 Bundle 'stlrefvim'
 
 " this confict to neocomplcache
@@ -193,20 +200,16 @@ Bundle 'Zopedav'
 
 Bundle 'scrooloose/syntastic'
 
-" YCM baddly, build too complex and confuse.
-"Bundle 'Valloric/YouCompleteMe'
-
-
 
 nnoremap \t :TagbarToggle<CR>
 
 "depend by vimprj
-Bundle 'DfrankUtil' 
-Bundle 'vimprj'
-Bundle 'indexer.tar.gz'
+"Bundle 'DfrankUtil' 
+"Bundle 'vimprj'
+"Bundle 'indexer.tar.gz'
 
 "nodejs and coffe
-Bundle 'kchmck/vim-coffee-script'
+"Bundle 'kchmck/vim-coffee-script'
 
 "python
 
@@ -219,12 +222,12 @@ Bundle 'kchmck/vim-coffee-script'
 
 "html/xml
 "Bundle 'html5.vim'
-Bundle 'xml.vim'
+"Bundle 'xml.vim'
 Bundle 'matchit.zip'
 
 "Bundle "html-improved-indentation" 
-Bundle 'https://github.com/Chiel92/vim-autoformat.git'
-let g:formatprg_args_cs="--mode=cs --style=ansi -pcHs4"
+"Bundle 'Chiel92/vim-autoformat.git'
+"let g:formatprg_args_cs="--mode=cs --style=ansi -pcHs4"
 
 filetype plugin indent on     " required!
 "
@@ -316,7 +319,7 @@ call LoadCscope()
 
 endif
 
-set autochdir
+"set autochdir
 
 
 "you spectial define
@@ -338,6 +341,23 @@ function! Blade(...)
 endfunction
 set makeprg=blade\ build
 nnoremap <F4> :make!<cr>
-
- 
 command! -complete=dir -nargs=* Blade call Blade('<args>')
+
+
+"ccplint
+function! CppLint(...)
+    let l:args = join(a:000)
+    if l:args == ""
+        let l:args = expand("%")
+        if l:args == ""
+            let l:args = '*'
+        endif
+    endif
+    let l:old_makeprg = &makeprg
+    setlocal makeprg=cpplint.py
+    execute "make " . l:args
+    let &makeprg=old_makeprg
+endfunction
+command! -complete=dir -nargs=* Cpplint call CppLint('<args>')
+let NERDTreeShowBookmarks=1
+
