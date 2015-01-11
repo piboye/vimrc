@@ -131,10 +131,10 @@ Bundle 'Vdebug'
 Bundle 'FencView.vim'
 
 "自动识别终端编码
-let &termencoding = substitute($LC_ALL, "[a-zA-Z_-]*\.", "", "")
-set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
-set termencoding=utf-8
-set encoding=utf-8
+"let &termencoding = substitute($LC_ALL, "[a-zA-Z_-]*\.", "", "")
+"set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+"set termencoding=utf-8
+"set encoding=utf-8
 
 Bundle 'L9'
 Bundle 'CmdlineCompl.vim'
@@ -225,8 +225,12 @@ nnoremap \t :TagbarToggle<CR>
 "Bundle 'xml.vim'
 Bundle 'matchit.zip'
 
+" astyle format
+Bundle 'Chiel92/vim-autoformat.git'
+let g:formatprg_cs = "astyle"
+let g:formatprg_args_cs = "--mode=cs --style=ansi -pcHs4"
+
 "Bundle "html-improved-indentation" 
-"Bundle 'Chiel92/vim-autoformat.git'
 "let g:formatprg_args_cs="--mode=cs --style=ansi -pcHs4"
 
 filetype plugin indent on     " required!
