@@ -270,9 +270,9 @@ set path=.,/usr/include,./include,./inc,./incl,../include,../inc,../incl
 
 Bundle 'tomasr/molokai.git'
 let g:rehash256 = 1
-colorscheme desert
+"colorscheme desert
 "colorscheme molokai
-"colorscheme solarized
+colorscheme solarized
 
 set t_Co=256
 
