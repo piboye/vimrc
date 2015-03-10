@@ -3,6 +3,3 @@
 	email = piboye@qq.com
 [push]
 	default = simple
-[http]
-	postBuffer = 2M
-	sslVerify = false
