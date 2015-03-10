@@ -172,7 +172,7 @@ Bundle 'jimenezrick/vimerl'
 
 "C++
 Bundle 'c.vim'
-"Bundle 'a.vim'
+Bundle 'a.vim'
 Bundle 'FSwitch'
 Bundle 'stlrefvim'
 
