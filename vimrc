@@ -106,16 +106,16 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_extensions = ['funky', 'tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_use_caching = 1
-let g:ctrlp_clear_cache_on_exit =  0 
+let g:ctrlp_clear_cache_on_exit =  1 
 "set wildignore+=*.so,*.swp,*.zip,*.tar,*.tar.gz,*.tgz,*.pyc,*.png,*.jpg,*.gif,*.jpeg,*.docx,*.o,*.bak,*.log,*.bin,*.fcg,*~ 
 let g:ctrlp_tabpage_position = 'ac'
-if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
+"if executable('ag')
+"  " Use Ag over Grep
+"  set grepprg=ag\ --nogroup\ --nocolor
+"
+"  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+"  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"endif
 let g:ctrlp_funky_matchtype = 'path'
 
 set wildignore+=*~
@@ -227,8 +227,7 @@ Bundle 'matchit.zip'
 
 " astyle format
 Bundle 'Chiel92/vim-autoformat.git'
-let g:formatprg_cs = "astyle"
-let g:formatprg_args_cs = "--mode=cs --style=ansi -pcHs4"
+let g:formatprg_cs = "astyle --style=google"
 
 "Bundle "html-improved-indentation" 
 "let g:formatprg_args_cs="--mode=cs --style=ansi -pcHs4"
@@ -316,7 +315,7 @@ function! LoadCscope()
         set cscopeverbose
     endif
 endfunction
-command LoadCscope call LoadCscope()
+"command LoadCscope call LoadCscope()
 
 "au BufEnter /* call LoadCscope()
 call LoadCscope()
