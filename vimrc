@@ -33,7 +33,8 @@ if has("mac")
     Bundle 'Valloric/YouCompleteMe'
     "开启tag 补全
     let g:ycm_collect_identifiers_from_tags_files = 1  
-
+    Bundle 'rizzatti/dash.vim'
+    nmap <silent> <leader>d <Plug>DashSearch
 else
     Bundle 'Shougo/neosnippet'
     Bundle 'neocomplcache'
@@ -144,7 +145,7 @@ Bundle 'mru.vim'
 Bundle 'mbbill/undotree'
 Bundle 'CRefVim'
 Bundle 'visincr'
-Bundle 'showmarks'
+"Bundle 'showmarks'
 Bundle 'statusline.vim'
 Bundle 'bling/vim-airline'
 Bundle 'powerline/powerline'
