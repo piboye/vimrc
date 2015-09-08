@@ -170,6 +170,9 @@ Bundle 'tpope/vim-surround'
 
 Bundle 'uarun/vim-protobuf'
 
+Bundle "ctrlsf.vim"
+
+
 "ide
 
 "erlang
