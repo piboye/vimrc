@@ -168,6 +168,8 @@ Bundle 'tpope/vim-surround'
 "let g:ctrlspace_default_mapping_key="<C->"
 
 
+Bundle 'uarun/vim-protobuf'
+
 "ide
 
 "erlang
