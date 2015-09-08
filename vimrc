@@ -20,6 +20,8 @@ let g:vundle_default_git_proto = 'https'
 
 Bundle 'tpope/vim-fugitive'
 
+Bundle 'https://github.com/will133/vim-dirdiff.git'
+
 Bundle 'tComment'
 Bundle 'ZenCoding.vim'
 Bundle 'plasticboy/vim-markdown.git'
