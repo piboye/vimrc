@@ -1,5 +1,9 @@
 let $GIT_SSL_NO_VERIFY='true'
 
+" source .vimrc from any directory
+set exrc
+set secure
+
 set nocompatible              " be iMproved
 
 filetype off                  " required!
@@ -30,18 +34,12 @@ Bundle 'pathogen.vim'
 Bundle 'AuthorInfo'
 Bundle 'DoxygenToolkit.vim'
 
-if has("mac")
-    Bundle "clang-complete"
-    Bundle 'Valloric/YouCompleteMe'
-    "开启tag 补全
-    let g:ycm_collect_identifiers_from_tags_files = 1  
-    Bundle 'rizzatti/dash.vim'
-    nmap <silent> <leader>d <Plug>DashSearch
-else
-    Bundle 'Shougo/neosnippet'
-    Bundle 'neocomplcache'
-    source ~/neocomp.vim
-endif
+Bundle 'ag.vim'
+Bundle 'Valloric/YouCompleteMe'
+"开启tag 补全
+let g:ycm_collect_identifiers_from_tags_files = 1
+Bundle 'rizzatti/dash.vim'
+nmap <silent> <leader>d <Plug>DashSearch
 
 Bundle 'majutsushi/tagbar'
 
@@ -52,27 +50,7 @@ Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'junegunn/vim-easy-align'
 
 Bundle 'Shougo/neosnippet-snippets'
-
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-let g:neosnippet#enable_snipmate_compatibility = 1
-
-"let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+Bundle 'UltiSnips'
 
 
 " Essetial vim plugin
@@ -95,8 +73,14 @@ map T <C-h>T
 
 
 "ctrlp设置
-Bundle 'ctrlp.vim'
+Bundle 'ctrlpvim/ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
+
+"提速 ctrlp 的匹配速度
+Bundle 'FelikZ/ctrlp-py-matcher'
+
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:100'
 let g:ctrlp_lazy_update = 100
 let g:ctrlp_root_markers = ['.vimprj','.prj', '.git']
@@ -109,17 +93,31 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_extensions = ['funky', 'tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_use_caching = 1
-let g:ctrlp_clear_cache_on_exit =  1 
+let g:ctrlp_clear_cache_on_exit =  0
 "set wildignore+=*.so,*.swp,*.zip,*.tar,*.tar.gz,*.tgz,*.pyc,*.png,*.jpg,*.gif,*.jpeg,*.docx,*.o,*.bak,*.log,*.bin,*.fcg,*~ 
 let g:ctrlp_tabpage_position = 'ac'
-"if executable('ag')
-"  " Use Ag over Grep
-"  set grepprg=ag\ --nogroup\ --nocolor
-"
-"  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-"  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-"endif
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+  let g:ctrlp_use_caching = 0
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+        \ --ignore .git
+        \ --ignore .svn
+        \ --ignore .hg
+        \ --ignore .DS_Store
+        \ --ignore "**/*.pyc"
+        \ --ignore "build64_debug"
+        \ --ignore "build64_release"
+        \ --ignore "**/*.o"
+        \ --ignore "**/*.a"
+        \ --ignore "**/*.so"
+        \ -g ""'
+endif
 let g:ctrlp_funky_matchtype = 'path'
+let g:ctrlp_show_hidden = 1
 
 set wildignore+=*~
 
@@ -179,26 +177,14 @@ Bundle "ctrlsf.vim"
 Bundle 'jimenezrick/vimerl'
 
 "C++
-Bundle 'c.vim'
+"Bundle 'c.vim'
 Bundle 'a.vim'
 Bundle 'FSwitch'
 Bundle 'stlrefvim'
 
-" this confict to neocomplcache
-Bundle 'OmniCppComplete' 
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " 显示函数参数列表
-let OmniCpp_MayCompleteDot = 1   " 输入 .  后自动补全
-let OmniCpp_MayCompleteArrow = 1 " 输入 -> 后自动补全
-let OmniCpp_MayCompleteScope = 1 " 输入 :: 后自动补全
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " 自动关闭补全窗口
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest
-
-Bundle "AutoComplPop"
 
 set complete-=i   " remove complete from include for auto complete fast
 set path=**
@@ -226,6 +212,8 @@ nnoremap \t :TagbarToggle<CR>
 "Bundle 'jsbeautify'
 "Bundle 'JSON.vim'
 "Bundle 'pangloss/vim-javascript'
+Bundle 'othree/yajs.vim'
+"Plugin 'node.js'
 
 
 "html/xml
@@ -343,7 +331,9 @@ augroup end
 
 
 
-"blade support
+
+autocmd BufRead,BufNewFile *.h set filetype=c++
+
 function! Blade(...)
     let l:old_makeprg = &makeprg
     setlocal makeprg=blade
