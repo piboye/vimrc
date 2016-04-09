@@ -189,6 +189,14 @@ Bundle 'mbbill/undotree'
 "底部状态栏
 Bundle 'statusline.vim'
 Bundle 'bling/vim-airline'
+"" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+nmap <silent> <leader>bn :bn<CR>
+nmap <silent> <leader>bp :bp<CR>
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
 Bundle 'powerline/powerline'
 
 
