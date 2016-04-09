@@ -97,8 +97,13 @@ Bundle 'UltiSnips'
 Bundle 'The-NERD-tree'
 Bundle 'jistr/vim-nerdtree-tabs'
 let NERDTreeShowBookmarks=1
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> 0c30e9fb0da0140bdf158d9a82a38cadb8ecd10b
 " 快速移动
 Bundle 'EasyMotion'
 let g:EasyMotion_leader_key='<C-h>'
@@ -419,4 +424,3 @@ command! -complete=dir -nargs=* Cpplint call CppLint('<args>')
 if has("autocmd")
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
-
