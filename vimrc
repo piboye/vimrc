@@ -1,11 +1,5 @@
 let $GIT_SSL_NO_VERIFY='true'
-
-" source .vimrc from any directory
-set exrc
-set secure
-
 set nocompatible              " be iMproved
-
 filetype off                  " required!
 
 set rtp+=~/.vim/bundle/vundle/
@@ -17,31 +11,77 @@ Bundle 'gmarik/vundle'
 let g:vundle_default_git_proto = 'https'
 
 " My bundles here:
-"
-" original repos on GitHub
 
-"Bundle 'exvim'
-
+" git 工具
 Bundle 'tpope/vim-fugitive'
 
-Bundle 'https://github.com/will133/vim-dirdiff.git'
+"目录比较
+Bundle 'will133/vim-dirdiff.git'
 
+"注释
 Bundle 'tComment'
+
+" html zen code
 Bundle 'ZenCoding.vim'
+
+" MarkDown 文档
 Bundle 'plasticboy/vim-markdown.git'
-Bundle 'pathogen.vim'
+
 
 Bundle 'AuthorInfo'
+let g:vimrc_author='piboyeliu' 
+let g:vimrc_email='piboye@tencent.com'
+let g:vimrc_homepage=''
+
 Bundle 'DoxygenToolkit.vim'
 
 Bundle 'ag.vim'
+let g:ag_working_path_mode="r"
+
+"YouCompleteMe 配置文件生成
+Bundle 'rdnetto/YCM-Generator'
+
 Bundle 'Valloric/YouCompleteMe'
-"开启tag 补全
-let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar' : 1,
+      \ 'qf' : 1,
+      \ 'notes' : 1,
+      \ 'markdown' : 1,
+      \ 'unite' : 1,
+      \ 'text' : 1,
+      \ 'vimwiki' : 1,
+      \ 'gitcommit' : 1,
+      \}
+" 避免询问是否加载 配置
+let g:ycm_confirm_extra_conf=0
+
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+let g:ycm_collect_identifiers_from_tag_files = 1
+" 语法关键字补全
+let g:ycm_seed_identifiers_with_syntax=1
+nnoremap <C-t> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+"
+let g:ycm_min_num_of_chars_for_completion=2 
+
+" 开启 YCM 基于标签引擎  
+let g:ycm_collect_identifiers_from_tags_files=1
+" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
+set completeopt-=preview
+
+"语法检查, clang
+Bundle 'scrooloose/syntastic'
+
+" Dash 文档
 Bundle 'rizzatti/dash.vim'
 nmap <silent> <leader>d <Plug>DashSearch
 
+
+" 对当前文件生成一个 Tag 的 列表
 Bundle 'majutsushi/tagbar'
+nnoremap \t :TagbarToggle<CR>
 
 "去掉尾部空白
 Bundle 'bronson/vim-trailing-whitespace'
@@ -49,14 +89,17 @@ Bundle 'bronson/vim-trailing-whitespace'
 " 赋值语句对齐
 Bundle 'junegunn/vim-easy-align'
 
-Bundle 'Shougo/neosnippet-snippets'
+" Snip 功能
 Bundle 'UltiSnips'
 
 
-" Essetial vim plugin
+" NERD 目录浏览
 Bundle 'The-NERD-tree'
 Bundle 'jistr/vim-nerdtree-tabs'
+let NERDTreeShowBookmarks=1
 
+
+" 快速移动
 Bundle 'EasyMotion'
 let g:EasyMotion_leader_key='<C-h>'
 let g:EasyMotion_smartcase = 1 
@@ -72,10 +115,9 @@ map T <C-h>T
 "map E <C-;>E
 
 
-"ctrlp设置
+"ctrlp设置,  查找文件
 Bundle 'ctrlpvim/ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
-
 "提速 ctrlp 的匹配速度
 Bundle 'FelikZ/ctrlp-py-matcher'
 
@@ -108,12 +150,12 @@ if executable('ag')
         \ --ignore .svn
         \ --ignore .hg
         \ --ignore .DS_Store
-        \ --ignore "**/*.pyc"
+        \ --ignore .pyc
         \ --ignore "build64_debug"
         \ --ignore "build64_release"
-        \ --ignore "**/*.o"
-        \ --ignore "**/*.a"
-        \ --ignore "**/*.so"
+        \ --ignore .o
+        \ --ignore .a
+        \ --ignore .so
         \ -g ""'
 endif
 let g:ctrlp_funky_matchtype = 'path'
@@ -123,52 +165,50 @@ set wildignore+=*~
 
 "common
 
-"use my conque-shell fix vimscript site bugs;
-Bundle 'piboye/Conque-Shell'
-
-Bundle 'Vdebug'
-
-"process file encode
+"识别文件编码
 Bundle 'FencView.vim'
 
-"自动识别终端编码
-"let &termencoding = substitute($LC_ALL, "[a-zA-Z_-]*\.", "", "")
-"set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
-"set termencoding=utf-8
-"set encoding=utf-8
-
+" vim script library, 增强 vim scripte 的功能
 Bundle 'L9'
+
+"命令行补全
 Bundle 'CmdlineCompl.vim'
 
+
+"目录不存在的时候， 自动创建
 Bundle 'auto_mkdir'
+
+"最近打开的文件
 Bundle 'mru.vim'
+
+"撤销历史
 Bundle 'mbbill/undotree'
-Bundle 'CRefVim'
-Bundle 'visincr'
+
 "Bundle 'showmarks'
+
+"底部状态栏
 Bundle 'statusline.vim'
 Bundle 'bling/vim-airline'
+"" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+nmap <silent> <leader>bn :bn<CR>
+nmap <silent> <leader>bp :bp<CR>
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
 Bundle 'powerline/powerline'
-"let g:airline_powerline_fonts=1
 
-Bundle 'kshenoy/vim-signature'
-Bundle 'terryma/vim-expand-region'
-Bundle 'ack.vim'
-Bundle 'EasyGrep'
 
-Bundle 'Tabular'
-Bundle 'SuperTab'
-Bundle 'Solarized'
+
+
 Bundle 'tpope/vim-surround'
 
+" 增强 session
+Bundle 'xolox/vim-session'
 
-"Bundle 'vim-ctrlspace'
-"let g:ctrlspace_default_mapping_key="<C->"
-
-
+" protobuf 编辑
 Bundle 'uarun/vim-protobuf'
-
-Bundle "ctrlsf.vim"
 
 
 "ide
@@ -177,56 +217,46 @@ Bundle "ctrlsf.vim"
 Bundle 'jimenezrick/vimerl'
 
 "C++
-"Bundle 'c.vim'
+Bundle 'c.vim'
 Bundle 'a.vim'
-Bundle 'FSwitch'
+
+"c 语言
+Bundle 'CRefVim'
+
+"stl 
 Bundle 'stlrefvim'
 
-" 自动关闭补全窗口
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest
-
-set complete-=i   " remove complete from include for auto complete fast
 set path=**
+
 "WebDav
 Bundle 'Zopedav'
 
 
-Bundle 'scrooloose/syntastic'
 
 
-nnoremap \t :TagbarToggle<CR>
-
-"depend by vimprj
-"Bundle 'DfrankUtil' 
 "Bundle 'vimprj'
-"Bundle 'indexer.tar.gz'
 
-"nodejs and coffe
-"Bundle 'kchmck/vim-coffee-script'
 
 "python
 
 
 "js
-"Bundle 'jsbeautify'
-"Bundle 'JSON.vim'
-"Bundle 'pangloss/vim-javascript'
 Bundle 'othree/yajs.vim'
-"Plugin 'node.js'
 
 
-"html/xml
-"Bundle 'html5.vim'
-"Bundle 'xml.vim'
+"extended % matching for HTML, LaTeX, and many other languages 
 Bundle 'matchit.zip'
 
 " astyle format
 Bundle 'Chiel92/vim-autoformat.git'
 let g:formatprg_cs = "astyle --style=google"
 
-"Bundle "html-improved-indentation" 
-"let g:formatprg_args_cs="--mode=cs --style=ansi -pcHs4"
+"配色
+Bundle 'tomasr/molokai.git'
+let g:rehash256 = 1
+colorscheme desert 
+"colorscheme molokai
+
 
 filetype plugin indent on     " required!
 "
@@ -237,8 +267,6 @@ filetype plugin indent on     " required!
 " :BundleClean(!)      - confirm (or auto-approve) removal of unused bundles
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle commands are not allowed.
-
-
 
 set autoindent
 set smarttab 
@@ -263,11 +291,6 @@ set path=.,/usr/include,./include,./inc,./incl,../include,../inc,../incl
 
 "set background=dark
 
-Bundle 'tomasr/molokai.git'
-let g:rehash256 = 1
-colorscheme desert
-"colorscheme molokai
-"colorscheme solarized
 
 set t_Co=256
 
@@ -282,8 +305,6 @@ set directory=~/backup/,.
 
 "for ejs template 
 au BufNewFile,BufRead *.ejs set filetype=html
-"let g:ycm_global_ycm_extra_conf='~/vimrc/.ycm_extra_conf.py'
-
 
 
 if has("cscope")
@@ -292,14 +313,32 @@ if has("cscope")
   set nocsverb
   set cscopequickfix=s-,c-,d-,i-,t-,e-
   set csverb
-    nmap <C-k>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-k>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-k>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-k>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-k>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-k>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap <C-k>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    nmap <C-k>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+     
+    " 查找 C 符号
+    nmap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+
+    " 查找定义
+    nmap <C-[>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+
+    " 看谁调用了这个函数
+    nmap <C-[>c :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+
+    " 查找字符串
+    nmap <C-[>t :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+
+    " egrep 方式查找 文本
+    nmap <C-[>e :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+
+    "查找这个文件
+    nmap <C-[>f :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
+
+    "查找 谁包含了这个文件
+    nmap <C-[>i :cs find i <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
+
+    "查找 这个函数调用了哪些函数
+    nmap <C-[>d :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+
+
 "auto load cscope from root dir
 function! LoadCscope()
     let cur_dir = expand('%:p:h')
@@ -311,12 +350,29 @@ function! LoadCscope()
         set cscopeverbose
     endif
 endfunction
-"command LoadCscope call LoadCscope()
-
-"au BufEnter /* call LoadCscope()
-call LoadCscope()
-
+command LoadCscope call LoadCscope()
+"call LoadCscope()
 endif
+
+function! LoadPrjVimrc()
+    let cur_dir = expand('%:p:h')
+    let db = findfile(".prj_vimrc", cur_dir . ";")
+    if (!empty(db))
+        exe "source " . db
+    endif
+endfunction
+call LoadPrjVimrc()
+"command LoadPrjVimrc call LoadPrjVimrc()
+
+function! LoadSession()
+    let cur_dir = expand('%:p:h')
+    let db = findfile("session.vim", cur_dir . ";")
+    if (!empty(db))
+        exe "source " . db
+    endif
+endfunction
+call LoadSession()
+"command LoadSession call LoadSession()
 
 "set autochdir
 
@@ -328,9 +384,6 @@ endif
 augroup filetype
     autocmd! BufRead,BufNewFile BUILD set filetype=blade
 augroup end
-
-
-
 
 autocmd BufRead,BufNewFile *.h set filetype=c++
 
@@ -360,5 +413,9 @@ function! CppLint(...)
     let &makeprg=old_makeprg
 endfunction
 command! -complete=dir -nargs=* Cpplint call CppLint('<args>')
-let NERDTreeShowBookmarks=1
 
+
+"保存文件的上一次位置, 好神奇， 没看明白
+if has("autocmd")
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
