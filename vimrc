@@ -97,13 +97,7 @@ Bundle 'UltiSnips'
 Bundle 'The-NERD-tree'
 Bundle 'jistr/vim-nerdtree-tabs'
 let NERDTreeShowBookmarks=1
-<<<<<<< HEAD
 
-
-=======
-
-
->>>>>>> 0c30e9fb0da0140bdf158d9a82a38cadb8ecd10b
 " 快速移动
 Bundle 'EasyMotion'
 let g:EasyMotion_leader_key='<C-h>'
@@ -201,16 +195,15 @@ nmap <silent> <leader>bp :bp<CR>
 
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
-
 Bundle 'powerline/powerline'
-
-
 
 
 Bundle 'tpope/vim-surround'
 
+Bundle 'vim-misc'
 " 增强 session
 Bundle 'xolox/vim-session'
+let g:session_autosave = 'no'
 
 " protobuf 编辑
 Bundle 'uarun/vim-protobuf'
