@@ -28,11 +28,6 @@ Bundle 'ZenCoding.vim'
 Bundle 'plasticboy/vim-markdown.git'
 
 
-Bundle 'AuthorInfo'
-let g:vimrc_author='piboyeliu' 
-let g:vimrc_email='piboye@tencent.com'
-let g:vimrc_homepage=''
-
 Bundle 'DoxygenToolkit.vim'
 
 Bundle 'ag.vim'
@@ -58,18 +53,18 @@ let g:ycm_confirm_extra_conf=0
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
-let g:ycm_collect_identifiers_from_tag_files = 1
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
 nnoremap <C-t> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "
-let g:ycm_min_num_of_chars_for_completion=2 
+let g:ycm_min_num_of_chars_for_completion=2
 
 " 开启 YCM 基于标签引擎  
-let g:ycm_collect_identifiers_from_tags_files=1
+"let g:ycm_collect_identifiers_from_tags_files=1
+
 " YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-set completeopt-=preview
+"set completeopt-=preview
 
 "语法检查, clang
 Bundle 'scrooloose/syntastic'
@@ -91,6 +86,16 @@ Bundle 'junegunn/vim-easy-align'
 
 " Snip 功能
 Bundle 'UltiSnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 
 " NERD 目录浏览
@@ -202,8 +207,12 @@ Bundle 'tpope/vim-surround'
 
 Bundle 'vim-misc'
 " 增强 session
-Bundle 'xolox/vim-session'
-let g:session_autosave = 'no'
+"Bundle 'xolox/vim-session'
+"let g:session_autosave = 'no'
+
+"Bundle 'SuperTab'
+"let g:SuperTabDefaultCompletionType = "<c-n>"
+"let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
 " protobuf 编辑
 Bundle 'uarun/vim-protobuf'
@@ -251,9 +260,13 @@ let g:formatprg_cs = "astyle --style=google"
 
 "配色
 Bundle 'tomasr/molokai.git'
-let g:rehash256 = 1
-colorscheme desert 
-"colorscheme molokai
+
+Bundle 'AuthorInfo'
+let g:vimrc_author='piboyeliu'
+let g:vimrc_email='piboye@tencent.com'
+let g:vimrc_homepage=''
+
+
 
 
 filetype plugin indent on     " required!
@@ -281,16 +294,20 @@ set backspace=indent,eol,start
 syntax enable
 syntax on
 
+let g:rehash256 = 1
+colorscheme desert
+"colorscheme molokai
+set t_Co=256
+set background=dark
+
+
 set tags=tags,../tags,../../tags;../../../tags;../../../../tags
 set foldmethod=syntax
 set foldlevel=99
 set number
 set path=.,/usr/include,./include,./inc,./incl,../include,../inc,../incl
 
-"set background=dark
 
-
-set t_Co=256
 
 set hlsearch
 
@@ -383,7 +400,7 @@ augroup filetype
     autocmd! BufRead,BufNewFile BUILD set filetype=blade
 augroup end
 
-autocmd BufRead,BufNewFile *.h set filetype=c++
+autocmd BufRead,BufNewFile *.h set filetype=cpp
 
 function! Blade(...)
     let l:old_makeprg = &makeprg
