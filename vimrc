@@ -30,12 +30,12 @@ Bundle 'plasticboy/vim-markdown.git'
 
 Bundle 'DoxygenToolkit.vim'
 
+Bundle 'ack.vim'
 Bundle 'ag.vim'
 let g:ag_working_path_mode="r"
 
 "YouCompleteMe 配置文件生成
-Bundle 'rdnetto/YCM-Generator'
-
+"Bundle 'rdnetto/YCM-Generator'
 Bundle 'Valloric/YouCompleteMe'
 let g:ycm_filetype_blacklist = {
       \ 'tagbar' : 1,
@@ -51,23 +51,28 @@ let g:ycm_filetype_blacklist = {
 let g:ycm_confirm_extra_conf=0
 
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
+let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
+let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
+let g:ycm_key_invoke_completion = '<C-e>' " 默认是 Ctr-space 开启
 " 语法关键字补全
-let g:ycm_seed_identifiers_with_syntax=1
+"let g:ycm_seed_identifiers_with_syntax=1
 nnoremap <C-t> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "
-let g:ycm_min_num_of_chars_for_completion=2
+let g:ycm_min_num_of_chars_for_completion=1
 
-" 开启 YCM 基于标签引擎  
-"let g:ycm_collect_identifiers_from_tags_files=1
+" 开启 YCM 基于标签引擎 
+let g:ycm_collect_identifiers_from_tags_files=1
 
 " YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-"set completeopt-=preview
+set completeopt+=preview
 
 "语法检查, clang
 Bundle 'scrooloose/syntastic'
+"因为Python已经有pylint来检查,
+"而且syntastic检查Python会在保存时有很长时间的卡顿,
+"所以禁用它对Python文件的检查
+let g:syntastic_ignore_files=[".*\.py$"]
 
 " Dash 文档
 Bundle 'rizzatti/dash.vim'
@@ -84,15 +89,16 @@ Bundle 'bronson/vim-trailing-whitespace'
 " 赋值语句对齐
 Bundle 'junegunn/vim-easy-align'
 
+
 " Snip 功能
 Bundle 'UltiSnips'
 
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-m>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
@@ -106,7 +112,7 @@ let NERDTreeShowBookmarks=1
 " 快速移动
 Bundle 'EasyMotion'
 let g:EasyMotion_leader_key='<C-h>'
-let g:EasyMotion_smartcase = 1 
+let g:EasyMotion_smartcase = 1
 map f <C-h>f
 map F <C-h>F
 map t <C-h>t
@@ -117,55 +123,56 @@ map T <C-h>T
 "map b <C-;>b
 "map e <C-;>e
 "map E <C-;>E
-
+"
+"
 
 "ctrlp设置,  查找文件
-Bundle 'ctrlpvim/ctrlp.vim'
+Bundle 'kien/ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
 "提速 ctrlp 的匹配速度
 Bundle 'FelikZ/ctrlp-py-matcher'
 
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:100'
 let g:ctrlp_lazy_update = 100
-let g:ctrlp_root_markers = ['.vimprj','.prj', '.git']
+let g:ctrlp_root_markers = ['BLADE_ROOT', '.prj']
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn|log|bin|tmp|temp)$',
-  \ 'file': '\v\.(fcg|bin|out|beam|pyc|o|so|a|jar|log|bak|docx|jpeg|gif|png|jpg|tar|gz|tgz|zip|swp)$',
-  \ 'link': '',
-  \ }
 let g:ctrlp_extensions = ['funky', 'tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
                           \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 let g:ctrlp_use_caching = 1
-let g:ctrlp_clear_cache_on_exit =  0
-"set wildignore+=*.so,*.swp,*.zip,*.tar,*.tar.gz,*.tgz,*.pyc,*.png,*.jpg,*.gif,*.jpeg,*.docx,*.o,*.bak,*.log,*.bin,*.fcg,*~ 
+let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_tabpage_position = 'ac'
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_use_caching = 0
+  let g:ackprg = 'ag --vimgrep'
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-        \ --ignore .git
-        \ --ignore .svn
-        \ --ignore .hg
-        \ --ignore .DS_Store
-        \ --ignore .pyc
+        \ --ignore ".*"
         \ --ignore "build64_debug"
         \ --ignore "build64_release"
         \ --ignore .o
         \ --ignore .a
         \ --ignore .so
         \ -g ""'
+
+  "      \ --ignore .git
+  "      \ --ignore .svn
+  "      \ --ignore .hg
+  "      \ --ignore .DS_Store
+  "      \ --ignore .pyc
+else
+" ag 没有的时候生效
+    let g:ctrlp_custom_ignore = {
+                \ 'dir':  '\v[\/]\.(git|svn|deps)$',
+                \ 'file': '\v\.(fcg|bin|out|beam|pyc|o|so|a|jar|log|bak|docx|jpeg|gif|png|jpg|tar|gz|tgz|zip|swp)$',
+                \ 'link': '',
+                \ }
 endif
 let g:ctrlp_funky_matchtype = 'path'
 let g:ctrlp_show_hidden = 1
 
-set wildignore+=*~
+"set wildignore+=*~
 
 "common
 
@@ -206,13 +213,6 @@ Bundle 'powerline/powerline'
 Bundle 'tpope/vim-surround'
 
 Bundle 'vim-misc'
-" 增强 session
-"Bundle 'xolox/vim-session'
-"let g:session_autosave = 'no'
-
-"Bundle 'SuperTab'
-"let g:SuperTabDefaultCompletionType = "<c-n>"
-"let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
 " protobuf 编辑
 Bundle 'uarun/vim-protobuf'
@@ -224,7 +224,7 @@ Bundle 'uarun/vim-protobuf'
 Bundle 'jimenezrick/vimerl'
 
 "C++
-Bundle 'c.vim'
+Bundle 'vim-scripts/c.vim'
 Bundle 'a.vim'
 
 "c 语言
@@ -237,8 +237,6 @@ set path=**
 
 "WebDav
 Bundle 'Zopedav'
-
-
 
 
 "Bundle 'vimprj'
@@ -280,10 +278,10 @@ filetype plugin indent on     " required!
 " NOTE: comments after Bundle commands are not allowed.
 
 set autoindent
-set smarttab 
-set tabstop=4  
+set smarttab
+set tabstop=4
 set softtabstop=4
-set shiftwidth=4 
+set shiftwidth=4
 set expandtab
 set ic
 set ai
@@ -368,6 +366,12 @@ endfunction
 command LoadCscope call LoadCscope()
 "call LoadCscope()
 endif
+
+function! Blade_build_fast()
+    exe "Blade build -pdebug"
+endfunction
+command Bb call Blade_build_fast()
+map <F5> <Esc>:Bb<CR>
 
 function! LoadPrjVimrc()
     let cur_dir = expand('%:p:h')
