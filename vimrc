@@ -49,7 +49,6 @@ let g:ycm_filetype_blacklist = {
       \}
 " 避免询问是否加载 配置
 let g:ycm_confirm_extra_conf=0
-
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
 let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
@@ -59,13 +58,13 @@ let g:ycm_key_invoke_completion = '<C-e>' " 默认是 Ctr-space 开启
 nnoremap <C-t> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "
-let g:ycm_min_num_of_chars_for_completion=1
+let g:ycm_min_num_of_chars_for_completion=2
 
 " 开启 YCM 基于标签引擎 
 let g:ycm_collect_identifiers_from_tags_files=1
 
 " YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
-set completeopt+=preview
+set completeopt=menu,preview
 
 "语法检查, clang
 Bundle 'scrooloose/syntastic'
@@ -96,7 +95,8 @@ Bundle 'UltiSnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-m>"
+let g:UltiSnipsExpandTrigger="<c-k>"
+
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 "let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
@@ -226,6 +226,16 @@ Bundle 'jimenezrick/vimerl'
 "C++
 Bundle 'vim-scripts/c.vim'
 Bundle 'a.vim'
+Bundle 'FSwitch'
+
+function! OpenOther()
+    if expand("%:e") == "cpp"
+        exe "split" fnameescape(expand("%:p:r:s?src?include?").".h")
+    elseif expand("%:e") == "h"
+        exe "split" fnameescape(expand("%:p:r:s?include?src?").".cpp")
+    endif
+endfunction
+nmap ,o :call OpenOther()<CR>
 
 "c 语言
 Bundle 'CRefVim'
@@ -433,6 +443,8 @@ function! CppLint(...)
 endfunction
 command! -complete=dir -nargs=* Cpplint call CppLint('<args>')
 
+" 把 .h 设置成 c++语言
+autocmd BufNewFile,BufReadPost *.h set filetype=cpp
 
 "保存文件的上一次位置, 好神奇， 没看明白
 if has("autocmd")
