@@ -4,4 +4,4 @@
 [push]
     default = matching
 [credential]
-	helper = wincred
+	helper = cache
