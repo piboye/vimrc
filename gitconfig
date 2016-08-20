@@ -2,4 +2,4 @@
 	name = piboye
 	email = piboye@qq.com
 [push]
-	default = simple
+    default = matching

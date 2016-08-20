@@ -172,7 +172,7 @@ endif
 let g:ctrlp_funky_matchtype = 'path'
 let g:ctrlp_show_hidden = 1
 
-"set wildignore+=*~
+set wildignore+=*~
 
 "common
 
@@ -209,7 +209,6 @@ nmap <silent> <leader>bp :bp<CR>
 let g:airline#extensions#tabline#fnamemod = ':t'
 Bundle 'powerline/powerline'
 
-
 Bundle 'tpope/vim-surround'
 
 Bundle 'vim-misc'
@@ -224,7 +223,12 @@ Bundle 'uarun/vim-protobuf'
 Bundle 'jimenezrick/vimerl'
 
 "C++
-Bundle 'vim-scripts/c.vim'
+"Bundle 'c.vim'
+
+"c++ 高亮语法显示
+Bundle 'octol/vim-cpp-enhanced-highlight'
+let g:cpp_class_scope_highlight = 1
+
 Bundle 'a.vim'
 Bundle 'FSwitch'
 
@@ -248,6 +252,8 @@ set path=**
 "WebDav
 Bundle 'Zopedav'
 
+Bundle "SuperTab"
+
 
 "Bundle 'vimprj'
 
@@ -268,13 +274,6 @@ let g:formatprg_cs = "astyle --style=google"
 
 "配色
 Bundle 'tomasr/molokai.git'
-
-Bundle 'AuthorInfo'
-let g:vimrc_author='piboyeliu'
-let g:vimrc_email='piboye@tencent.com'
-let g:vimrc_homepage=''
-
-
 
 
 filetype plugin indent on     " required!
@@ -302,11 +301,15 @@ set backspace=indent,eol,start
 syntax enable
 syntax on
 
-let g:rehash256 = 1
-colorscheme desert
-"colorscheme molokai
-set t_Co=256
 set background=dark
+let g:rehash256 = 1
+set t_Co=256
+colorscheme desert
+let g:syntastic_warning_symbol = 'W'
+let g:syntastic_error_symbol = 'E'
+"高亮显示光标所在的行
+set cursorline
+
 
 
 set tags=tags,../tags,../../tags;../../../tags;../../../../tags
@@ -330,13 +333,14 @@ set directory=~/backup/,.
 au BufNewFile,BufRead *.ejs set filetype=html
 
 
-if has("cscope")
+"if  has("cscope")
+if 0
   set csto=1
   set cst
   set nocsverb
   set cscopequickfix=s-,c-,d-,i-,t-,e-
   set csverb
-     
+
     " 查找 C 符号
     nmap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
 
