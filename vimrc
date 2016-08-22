@@ -229,8 +229,9 @@ Bundle 'jimenezrick/vimerl'
 Bundle 'octol/vim-cpp-enhanced-highlight'
 let g:cpp_class_scope_highlight = 1
 
-Bundle 'a.vim'
+"Bundle 'a.vim'
 Bundle 'FSwitch'
+command A FSHere
 
 function! OpenOther()
     if expand("%:e") == "cpp"
