@@ -28,8 +28,10 @@ Bundle 'ZenCoding.vim'
 Bundle 'plasticboy/vim-markdown.git'
 
 
+" Doxygen
 Bundle 'DoxygenToolkit.vim'
 
+" 替换 grep 查找
 Bundle 'ack.vim'
 Bundle 'ag.vim'
 let g:ag_working_path_mode="r"
@@ -54,11 +56,13 @@ let g:ycm_complete_in_strings = 1   "在字符串输入中也能补全
 let g:ycm_complete_in_comments = 1  "在注释输入中也能补全
 let g:ycm_key_invoke_completion = '<C-e>' " 默认是 Ctr-space 开启
 " 语法关键字补全
-"let g:ycm_seed_identifiers_with_syntax=1
+let g:ycm_seed_identifiers_with_syntax=1
 nnoremap <C-t> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
+let g:ycm_use_ultisnips_completer=0 
+
 "
-let g:ycm_min_num_of_chars_for_completion=2
+let g:ycm_min_num_of_chars_for_completion=1
 
 " 开启 YCM 基于标签引擎 
 let g:ycm_collect_identifiers_from_tags_files=1
@@ -90,16 +94,13 @@ Bundle 'junegunn/vim-easy-align'
 
 
 " Snip 功能
-Bundle 'UltiSnips'
-
+Bundle 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-k>"
-
+let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 "let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
@@ -108,10 +109,11 @@ let g:UltiSnipsEditSplit="vertical"
 Bundle 'The-NERD-tree'
 Bundle 'jistr/vim-nerdtree-tabs'
 let NERDTreeShowBookmarks=1
+nmap <silent> <leader> :NERDTreeToggle<CR>
 
 " 快速移动
 Bundle 'EasyMotion'
-let g:EasyMotion_leader_key='<C-h>'
+"let g:EasyMotion_leader_key='<C-h>'
 let g:EasyMotion_smartcase = 1
 map f <C-h>f
 map F <C-h>F
@@ -248,8 +250,6 @@ Bundle 'CRefVim'
 "stl 
 Bundle 'stlrefvim'
 
-set path=**
-
 "WebDav
 Bundle 'Zopedav'
 
@@ -317,7 +317,7 @@ set tags=tags,../tags,../../tags;../../../tags;../../../../tags
 set foldmethod=syntax
 set foldlevel=99
 set number
-set path=.,/usr/include,./include,./inc,./incl,../include,../inc,../incl
+set path=.,/usr/include,./include,./inc,./incl,../include,../inc,../incl,
 
 
 
