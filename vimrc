@@ -109,11 +109,23 @@ let g:UltiSnipsEditSplit="vertical"
 Bundle 'The-NERD-tree'
 Bundle 'jistr/vim-nerdtree-tabs'
 let NERDTreeShowBookmarks=1
-nmap <silent> <leader> :NERDTreeToggle<CR>
+nmap <silent> <leader>n :NERDTreeToggle<CR>
+
+"tab 页切换
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
 
 " 快速移动
 Bundle 'EasyMotion'
-"let g:EasyMotion_leader_key='<C-h>'
+let g:EasyMotion_leader_key='<C-h>'
 let g:EasyMotion_smartcase = 1
 map f <C-h>f
 map F <C-h>F
@@ -204,12 +216,10 @@ Bundle 'statusline.vim'
 Bundle 'bling/vim-airline'
 "" Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
-nmap <silent> <leader>bn :bn<CR>
-nmap <silent> <leader>bp :bp<CR>
-
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 Bundle 'powerline/powerline'
+
 
 Bundle 'tpope/vim-surround'
 
