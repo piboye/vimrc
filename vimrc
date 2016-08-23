@@ -307,17 +307,19 @@ Bundle 'Shougo/neomru.vim'
 Bundle 'Shougo/unite-outline'
 Bundle 'Shougo/vimproc.vim', {'do':'make'}
 Bundle 'Shougo/unite.vim'
+nnoremap <space>u :Unite<cr>
 nnoremap <space>p :Unite -start-insert files buffer file_mru bookmark file_rec/async<cr>
-nnoremap <space>e :Unite -buffer-name=dir -quick-match file<cr>
+nnoremap <space>e :Unite -buffer-name=files -insert files file<cr>
 nnoremap <space>r :Unite -buffer-name=mru -start-insert file_mru<cr>
 "let g:unite_source_grep_command = 'ag'
 "多文件查找
 nnoremap <space>/ :Unite grep:.<cr>
 "管理buffer
-nnoremap <space>b :Unite -quick-match buffer<cr>
+nnoremap <space>l :Unite -quick-match buffer<cr>
 let g:unite_source_history_yank_enable = 1
 nnoremap <space>y :Unite -buffer-name=yank history/yank<cr>
 nnoremap <space>o :Unite -buffer-name=outline outline<cr>
+nnoremap <space>b :Unite -buffer-name=bookmark bookmark<cr>
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
