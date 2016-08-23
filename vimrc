@@ -2,6 +2,8 @@ let $GIT_SSL_NO_VERIFY='true'
 set nocompatible              " be iMproved
 filetype off                  " required!
 
+let mapleader=","
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -88,9 +90,6 @@ Bundle 'Raimondi/delimitMate'
 " / 搜索的时候可以完成输入
 Bundle 'SearchComplete'
 
-" 项目管理
-Bundle 'tpope/vim-projectionist'
-
 "增强 . 的重复能力
 Bundle 'tpope/vim-repeat'
 
@@ -101,7 +100,7 @@ nmap <silent> <leader>d <Plug>DashSearch
 
 " 对当前文件生成一个 Tag 的 列表
 Bundle 'majutsushi/tagbar'
-nnoremap \t :TagbarToggle<CR>
+nnoremap ,t :TagbarToggle<CR>
 
 "去掉尾部空白
 Bundle 'bronson/vim-trailing-whitespace'
@@ -145,8 +144,8 @@ Bundle 'EasyMotion'
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_mapping_f = 'f'
 let g:EasyMotion_mapping_F = 'F'
-let g:EasyMotion_mapping_t = 't'
-let g:EasyMotion_mapping_T = 'T'
+"let g:EasyMotion_mapping_t = 't'
+"let g:EasyMotion_mapping_T = 'T'
 
 "ctrlp设置,  查找文件
 Bundle 'kien/ctrlp.vim'
