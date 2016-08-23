@@ -65,10 +65,9 @@ let g:ycm_key_invoke_completion = '<C-e>' " 默认是 Ctr-space 开启
 let g:ycm_seed_identifiers_with_syntax=1
 nnoremap <C-t> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-let g:ycm_use_ultisnips_completer=0 
-
+let g:ycm_use_ultisnips_completer=0
 "
-let g:ycm_min_num_of_chars_for_completion=1
+let g:ycm_min_num_of_chars_for_completion=2
 
 " 开启 YCM 基于标签引擎 
 let g:ycm_collect_identifiers_from_tags_files=1
@@ -252,7 +251,7 @@ let g:cpp_class_scope_highlight = 1
 
 "Bundle 'a.vim'
 Bundle 'FSwitch'
-command A FSHere
+nnoremap <leader>a :FSHere<cr>
 
 function! OpenOther()
     if expand("%:e") == "cpp"
@@ -315,7 +314,6 @@ nnoremap <space>/ :Unite grep:.<cr>
 nnoremap <space>b :Unite -quick-match buffer<cr>
 let g:unite_source_history_yank_enable = 1
 nnoremap <space>y :Unite history/yank<cr>
-nnoremap <space>a :FSHere<cr>
 
 
 " 多选文本
