@@ -14,6 +14,8 @@ let g:vundle_default_git_proto = 'https'
 
 " git 工具
 Bundle 'tpope/vim-fugitive'
+" 代码中显示哪些做了修改
+Bundle 'jisaacks/GitGutter'
 
 "目录比较
 Bundle 'will133/vim-dirdiff.git'
@@ -22,7 +24,7 @@ Bundle 'will133/vim-dirdiff.git'
 Bundle 'tComment'
 
 " html zen code
-Bundle 'ZenCoding.vim'
+Bundle 'mattn/emmet-vim'
 
 " MarkDown 文档
 Bundle 'plasticboy/vim-markdown.git'
@@ -34,6 +36,8 @@ Bundle 'DoxygenToolkit.vim'
 " 替换 grep 查找
 Bundle 'ack.vim'
 Bundle 'ag.vim'
+
+
 let g:ag_working_path_mode="r"
 
 "YouCompleteMe 配置文件生成
@@ -76,6 +80,19 @@ Bundle 'scrooloose/syntastic'
 "而且syntastic检查Python会在保存时有很长时间的卡顿,
 "所以禁用它对Python文件的检查
 let g:syntastic_ignore_files=[".*\.py$"]
+
+
+" 自动关闭 引号 括号等
+Bundle 'Raimondi/delimitMate'
+
+" / 搜索的时候可以完成输入
+Bundle 'SearchComplete'
+
+" 项目管理
+Bundle 'tpope/vim-projectionist'
+
+"增强 . 的重复能力
+Bundle 'tpope/vim-repeat'
 
 " Dash 文档
 Bundle 'rizzatti/dash.vim'
@@ -125,20 +142,11 @@ noremap <leader>0 :tablast<cr>
 
 " 快速移动
 Bundle 'EasyMotion'
-let g:EasyMotion_leader_key='<C-h>'
 let g:EasyMotion_smartcase = 1
-map f <C-h>f
-map F <C-h>F
-map t <C-h>t
-map T <C-h>T
-"map w <C-;>w
-"map W <C-;>W
-"map B <C-;>B
-"map b <C-;>b
-"map e <C-;>e
-"map E <C-;>E
-"
-"
+let g:EasyMotion_mapping_f = 'f'
+let g:EasyMotion_mapping_F = 'F'
+let g:EasyMotion_mapping_t = 't'
+let g:EasyMotion_mapping_T = 'T'
 
 "ctrlp设置,  查找文件
 Bundle 'kien/ctrlp.vim'
@@ -221,6 +229,8 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 Bundle 'powerline/powerline'
 
 
+
+" 替换 包围的字符， 比如 把 "abc" 换成 'abc'
 Bundle 'tpope/vim-surround'
 
 Bundle 'vim-misc'
@@ -265,13 +275,17 @@ Bundle 'Zopedav'
 
 Bundle "SuperTab"
 
+" 可以 对多行 赋值= 进行对齐
+Bundle 'godlygeek/tabular'
+nnoremap <space><tab>= :Tabularize /=<cr>
+nnoremap <space><tab>: :Tabularize /:<cr>
+
+" tmux 导航支持
+"Plugin 'christoomey/vim-tmux-navigator'
+
 
 "Bundle 'vimprj'
-
-
 "python
-
-
 "js
 Bundle 'othree/yajs.vim'
 
@@ -279,12 +293,34 @@ Bundle 'othree/yajs.vim'
 "extended % matching for HTML, LaTeX, and many other languages 
 Bundle 'matchit.zip'
 
-" astyle format
+" astyle format 格式化
 Bundle 'Chiel92/vim-autoformat.git'
 let g:formatprg_cs = "astyle --style=google"
 
 "配色
 Bundle 'tomasr/molokai.git'
+
+"Bundle 'jlanzarotta/bufexplorer'
+
+
+" 多个拷贝
+Bundle 'Shougo/neoyank.vim'
+Bundle 'Shougo/neomru.vim'
+Bundle 'Shougo/vimproc.vim', {'do':'make'}
+Bundle 'Shougo/unite.vim'
+nnoremap <space>p :Unite -buffer-name=files buffer file_mru bookmark file_rec/async<cr>
+"let g:unite_source_grep_command = 'ag'
+"多文件查找
+nnoremap <space>/ :Unite grep:.<cr>
+"管理buffer
+nnoremap <space>b :Unite -quick-match buffer<cr>
+let g:unite_source_history_yank_enable = 1
+nnoremap <space>y :Unite history/yank<cr>
+nnoremap <space>a :FSHere<cr>
+
+
+" 多选文本
+Bundle 'terryma/vim-multiple-cursors'
 
 
 filetype plugin indent on     " required!
@@ -345,52 +381,52 @@ au BufNewFile,BufRead *.ejs set filetype=html
 
 
 "if  has("cscope")
-if 0
-  set csto=1
-  set cst
-  set nocsverb
-  set cscopequickfix=s-,c-,d-,i-,t-,e-
-  set csverb
-
-    " 查找 C 符号
-    nmap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-
-    " 查找定义
-    nmap <C-[>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-
-    " 看谁调用了这个函数
-    nmap <C-[>c :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-
-    " 查找字符串
-    nmap <C-[>t :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-
-    " egrep 方式查找 文本
-    nmap <C-[>e :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-
-    "查找这个文件
-    nmap <C-[>f :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
-
-    "查找 谁包含了这个文件
-    nmap <C-[>i :cs find i <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
-
-    "查找 这个函数调用了哪些函数
-    nmap <C-[>d :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-
-
-"auto load cscope from root dir
-function! LoadCscope()
-    let cur_dir = expand('%:p:h')
-    let db = findfile("cscope.out", cur_dir . ";")
-    if (!empty(db))
-        let path = strpart(db, 0, match(db, "/cscope.out$"))
-        set nocscopeverbose " suppress 'duplicate connection' error
-        exe "cs add " . db . " " . path
-        set cscopeverbose
-    endif
-endfunction
-command LoadCscope call LoadCscope()
-"call LoadCscope()
-endif
+"if 0
+"  set csto=1
+"  set cst
+"  set nocsverb
+"  set cscopequickfix=s-,c-,d-,i-,t-,e-
+"  set csverb
+"
+"    " 查找 C 符号
+"    nmap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"
+"    " 查找定义
+"    nmap <C-[>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+"
+"    " 看谁调用了这个函数
+"    nmap <C-[>c :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"
+"    " 查找字符串
+"    nmap <C-[>t :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"
+"    " egrep 方式查找 文本
+"    nmap <C-[>e :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"
+"    "查找这个文件
+"    nmap <C-[>f :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
+"
+"    "查找 谁包含了这个文件
+"    nmap <C-[>i :cs find i <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
+"
+"    "查找 这个函数调用了哪些函数
+"    nmap <C-[>d :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"
+"
+""auto load cscope from root dir
+"function! LoadCscope()
+"    let cur_dir = expand('%:p:h')
+"    let db = findfile("cscope.out", cur_dir . ";")
+"    if (!empty(db))
+"        let path = strpart(db, 0, match(db, "/cscope.out$"))
+"        set nocscopeverbose " suppress 'duplicate connection' error
+"        exe "cs add " . db . " " . path
+"        set cscopeverbose
+"    endif
+"endfunction
+"command LoadCscope call LoadCscope()
+""call LoadCscope()
+"endif
 
 function! Blade_build_fast()
     exe "Blade build -pdebug"
@@ -419,7 +455,6 @@ call LoadSession()
 "command LoadSession call LoadSession()
 
 "set autochdir
-
 
 "you spectial define
 if filereadable(expand("~/my.vimrc"))
