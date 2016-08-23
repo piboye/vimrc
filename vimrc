@@ -307,11 +307,21 @@ Bundle 'Shougo/neomru.vim'
 Bundle 'Shougo/unite-outline'
 Bundle 'Shougo/vimproc.vim', {'do':'make'}
 Bundle 'Shougo/unite.vim'
-nnoremap <space>u :Unite<cr>
-nnoremap <space>p :Unite -start-insert files buffer file_mru bookmark file_rec/async<cr>
-nnoremap <space>e :Unite -buffer-name=files -insert files file<cr>
+let g:unite_source_rec_async_command =
+  \ ['ag', '--nocolor', '--nogroup',
+  \  '--depth', '10', '-g', '']
+" ag is quite fast, so we increase this number
+let g:unite_source_rec_min_cache_files = 12000
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+let g:unite_source_grep_recursive_opt = ''
+let g:unite_split_rule = "botright"
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+nnoremap <space>u :Unite -start-insert<cr>
+nnoremap <space>p :Unite -start-insert file buffer file_mru bookmark<cr>
+nnoremap <space>e :Unite -buffer-name=files -start-insert file<cr>
 nnoremap <space>r :Unite -buffer-name=mru -start-insert file_mru<cr>
-"let g:unite_source_grep_command = 'ag'
 "多文件查找
 nnoremap <space>/ :Unite grep:.<cr>
 "管理buffer
