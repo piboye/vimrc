@@ -307,11 +307,6 @@ Bundle 'Shougo/neomru.vim'
 Bundle 'Shougo/unite-outline'
 Bundle 'Shougo/vimproc.vim', {'do':'make'}
 Bundle 'Shougo/unite.vim'
-let g:unite_source_rec_async_command =
-  \ ['ag', '--nocolor', '--nogroup',
-  \  '--depth', '10', '-g', '']
-" ag is quite fast, so we increase this number
-let g:unite_source_rec_min_cache_files = 12000
 let g:unite_source_grep_command = 'ag'
 let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
 let g:unite_source_grep_recursive_opt = ''
