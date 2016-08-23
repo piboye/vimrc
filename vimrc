@@ -304,16 +304,30 @@ Bundle 'tomasr/molokai.git'
 " 多个拷贝
 Bundle 'Shougo/neoyank.vim'
 Bundle 'Shougo/neomru.vim'
+Bundle 'Shougo/unite-outline'
 Bundle 'Shougo/vimproc.vim', {'do':'make'}
 Bundle 'Shougo/unite.vim'
-nnoremap <space>p :Unite -buffer-name=files buffer file_mru bookmark file_rec/async<cr>
+nnoremap <space>p :Unite -start-insert files buffer file_mru bookmark file_rec/async<cr>
+nnoremap <space>e :Unite -buffer-name=dir -quick-match file<cr>
+nnoremap <space>r :Unite -buffer-name=mru -start-insert file_mru<cr>
 "let g:unite_source_grep_command = 'ag'
 "多文件查找
 nnoremap <space>/ :Unite grep:.<cr>
 "管理buffer
 nnoremap <space>b :Unite -quick-match buffer<cr>
 let g:unite_source_history_yank_enable = 1
-nnoremap <space>y :Unite history/yank<cr>
+nnoremap <space>y :Unite -buffer-name=yank history/yank<cr>
+nnoremap <space>o :Unite -buffer-name=outline outline<cr>
+
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  " Play nice with supertab
+  let b:SuperTabDisabled=1
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction
 
 
 " 多选文本
@@ -377,53 +391,50 @@ set directory=~/backup/,.
 au BufNewFile,BufRead *.ejs set filetype=html
 
 
-"if  has("cscope")
-"if 0
-"  set csto=1
-"  set cst
-"  set nocsverb
-"  set cscopequickfix=s-,c-,d-,i-,t-,e-
-"  set csverb
-"
-"    " 查找 C 符号
-"    nmap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-"
-"    " 查找定义
-"    nmap <C-[>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-"
-"    " 看谁调用了这个函数
-"    nmap <C-[>c :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-"
-"    " 查找字符串
-"    nmap <C-[>t :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-"
-"    " egrep 方式查找 文本
-"    nmap <C-[>e :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-"
-"    "查找这个文件
-"    nmap <C-[>f :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
-"
-"    "查找 谁包含了这个文件
-"    nmap <C-[>i :cs find i <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
-"
-"    "查找 这个函数调用了哪些函数
-"    nmap <C-[>d :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-"
-"
-""auto load cscope from root dir
-"function! LoadCscope()
-"    let cur_dir = expand('%:p:h')
-"    let db = findfile("cscope.out", cur_dir . ";")
-"    if (!empty(db))
-"        let path = strpart(db, 0, match(db, "/cscope.out$"))
-"        set nocscopeverbose " suppress 'duplicate connection' error
-"        exe "cs add " . db . " " . path
-"        set cscopeverbose
-"    endif
-"endfunction
-"command LoadCscope call LoadCscope()
-""call LoadCscope()
-"endif
+if  has("cscope")
+  set csto=1
+  set cst
+  set nocsverb
+  set cscopequickfix=s-,c-,d-,i-,t-,e-
+  set csverb
+    " 查找 C 符号
+    nmap <leader>gs :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+
+    " 查找定义
+    nmap <leader>gg :cs find g <C-R>=expand("<cword>")<CR><CR>
+
+    " 看谁调用了这个函数
+    nmap <leader>gc :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+
+    "查找 这个函数调用了哪些函数
+    nmap <leader>gd :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+
+    " 查找字符串
+    nmap <leader>gt :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+
+    " egrep 方式查找 文本
+    nmap <leader>ge :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+
+    "查找这个文件
+    nmap <leader>gf :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
+
+    "查找 谁包含了这个文件
+    nmap <leader>gi :cs find i <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
+
+"auto load cscope from root dir
+function! LoadCscope()
+    let cur_dir = expand('%:p:h')
+    let db = findfile("cscope.out", cur_dir . ";")
+    if (!empty(db))
+        let path = strpart(db, 0, match(db, "/cscope.out$"))
+        set nocscopeverbose " suppress 'duplicate connection' error
+        exe "cs add " . db . " " . path
+        set cscopeverbose
+    endif
+endfunction
+command LoadCscope call LoadCscope()
+call LoadCscope()
+endif
 
 function! Blade_build_fast()
     exe "Blade build -pdebug"
