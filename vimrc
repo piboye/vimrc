@@ -357,11 +357,17 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
-set ic
-set ai
-set si
 
-set nocompatible
+" set ignorecase 搜索的时候 忽略大小写, 但会影响补全, set infercase 可以避免
+"set ignorecase
+"使用 wildignorecase 也可以防止哦 
+set wildignorecase
+set infercase
+
+set autoindent
+set smartindent
+set incsearch
+
 set backspace=indent,eol,start
 syntax enable
 syntax on
@@ -374,6 +380,7 @@ let g:syntastic_warning_symbol = 'W'
 let g:syntastic_error_symbol = 'E'
 "高亮显示光标所在的行
 set cursorline
+
 
 
 
