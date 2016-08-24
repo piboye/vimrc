@@ -548,7 +548,7 @@ endfunction
 
 function! My_cpp_setting()
     let b:fswitchdst  = 'h'
-    let b:fswitchlocs = 'reg:/src/include/,reg:|src|include/**|,../include,..'
+    let b:fswitchlocs = 'reg:/src/include/,reg:|src|include/**|,../include,../incl/,..'
 endfunction
 
 " 把 .h 设置成 c++语言
