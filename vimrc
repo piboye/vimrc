@@ -41,7 +41,6 @@ Bundle 'ag.vim'
 
 
 let g:ag_working_path_mode="r"
-
 "YouCompleteMe 配置文件生成
 "Bundle 'rdnetto/YCM-Generator'
 Bundle 'Valloric/YouCompleteMe'
@@ -65,7 +64,7 @@ let g:ycm_key_invoke_completion = '<C-e>' " 默认是 Ctr-space 开启
 let g:ycm_seed_identifiers_with_syntax=1
 nnoremap <C-t> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-let g:ycm_use_ultisnips_completer=0
+let g:ycm_use_ultisnips_completer=1
 "
 let g:ycm_min_num_of_chars_for_completion=2
 
@@ -115,7 +114,7 @@ Plugin 'honza/vim-snippets'
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
@@ -139,12 +138,49 @@ noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 
 " 快速移动
-Bundle 'EasyMotion'
+Bundle 'easymotion/vim-easymotion'
 let g:EasyMotion_smartcase = 1
-let g:EasyMotion_mapping_f = 'f'
-let g:EasyMotion_mapping_F = 'F'
-"let g:EasyMotion_mapping_t = 't'
-"let g:EasyMotion_mapping_T = 'T'
+map  f <Plug>(easymotion-bd-f)
+nmap f <Plug>(easymotion-overwin-f)
+nmap <leader>s <Plug>(easymotion-overwin-f2)
+"Move to Line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+"增量 search 也支持 easy-motion
+Bundle 'haya14busa/incsearch.vim'
+Bundle 'haya14busa/incsearch-easymotion.vim'
+Bundle 'haya14busa/incsearch-fuzzy.vim'
+function! s:incsearch_config(...) abort
+  return incsearch#util#deepextend(deepcopy({
+  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  \   'keymap': {
+  \     "\<CR>": '<Over>(easymotion)'
+  \   },
+  \   'is_expr': 0
+  \ }), get(a:, 1, {}))
+endfunction
+noremap <silent><expr> /  incsearch#go(<SID>incsearch_config())
+noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
+noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
+
+"模糊查找
+function! s:config_easyfuzzymotion(...) abort
+  return extend(copy({
+  \   'converters': [incsearch#config#fuzzy#converter()],
+  \   'modules': [incsearch#config#easymotion#module()],
+  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+  \   'is_expr': 0,
+  \   'is_stay': 1
+  \ }), get(a:, 1, {}))
+endfunction
+noremap <silent><expr> <leader>/ incsearch#go(<SID>config_easyfuzzymotion())
+noremap <silent><expr> <leader>?  incsearch#go(<SID>config_easyfuzzymotion({'command': '?'}))
+noremap <silent><expr> <leader>g/ incsearch#go(<SID>config_easyfuzzymotion({'is_stay': 1}))
+
 
 "ctrlp设置,  查找文件
 Bundle 'kien/ctrlp.vim'
@@ -249,18 +285,8 @@ Bundle 'jimenezrick/vimerl'
 Bundle 'octol/vim-cpp-enhanced-highlight'
 let g:cpp_class_scope_highlight = 1
 
-"Bundle 'a.vim'
 Bundle 'FSwitch'
 nnoremap <leader>a :FSHere<cr>
-
-function! OpenOther()
-    if expand("%:e") == "cpp"
-        exe "split" fnameescape(expand("%:p:r:s?src?include?").".h")
-    elseif expand("%:e") == "h"
-        exe "split" fnameescape(expand("%:p:r:s?include?src?").".cpp")
-    endif
-endfunction
-nmap ,o :call OpenOther()<CR>
 
 "c 语言
 Bundle 'CRefVim'
@@ -275,8 +301,6 @@ Bundle "SuperTab"
 
 " 可以 对多行 赋值= 进行对齐
 Bundle 'godlygeek/tabular'
-nnoremap <space><tab>= :Tabularize /=<cr>
-nnoremap <space><tab>: :Tabularize /:<cr>
 
 " tmux 导航支持
 "Plugin 'christoomey/vim-tmux-navigator'
@@ -317,6 +341,7 @@ nnoremap <space>u :Unite -start-insert<cr>
 nnoremap <space>p :Unite -start-insert file buffer file_mru bookmark<cr>
 nnoremap <space>e :Unite -buffer-name=files -start-insert file<cr>
 nnoremap <space>r :Unite -buffer-name=mru -start-insert file_mru<cr>
+nnoremap <space>j :Unite -buffer-name=jump -start-insert jump<cr>
 "多文件查找
 nnoremap <space>/ :Unite grep:.<cr>
 "管理buffer
@@ -382,23 +407,23 @@ let g:syntastic_error_symbol = 'E'
 set cursorline
 
 
-
-
 set tags=tags,../tags,../../tags;../../../tags;../../../../tags
 set foldmethod=syntax
 set foldlevel=99
-set number
+"默认关闭折叠
+set nofoldenable
+
+
 set path=.,/usr/include,./include,./inc,./incl,../include,../inc,../incl,
 
 
-
+set number
 set hlsearch
 
 set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=utf-8
 
 set backupdir=~/backup/,.
 set directory=~/backup/,.
-
 
 
 "for ejs template 
@@ -515,8 +540,20 @@ function! CppLint(...)
 endfunction
 command! -complete=dir -nargs=* Cpplint call CppLint('<args>')
 
+function! My_h_header_setting()
+    set filetype=cpp
+    let b:fswitchdst  = 'cpp,c'
+    let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/,../src,./src'
+endfunction
+
+function! My_cpp_setting()
+    let b:fswitchdst  = 'h'
+    let b:fswitchlocs = 'reg:/src/include/,reg:|src|include/**|,../include,..'
+endfunction
+
 " 把 .h 设置成 c++语言
-autocmd BufNewFile,BufReadPost *.h set filetype=cpp
+autocmd BufNewFile,BufReadPost *.h call My_h_header_setting()
+autocmd BufNewFile,BufReadPost *.cpp call My_cpp_setting()
 
 "保存文件的上一次位置, 好神奇， 没看明白
 if has("autocmd")
