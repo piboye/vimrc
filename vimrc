@@ -343,7 +343,8 @@ nnoremap <space>e :Unite -buffer-name=files -start-insert file<cr>
 nnoremap <space>r :Unite -buffer-name=mru -start-insert file_mru<cr>
 nnoremap <space>j :Unite -buffer-name=jump -start-insert jump<cr>
 "多文件查找
-nnoremap <space>/ :Unite grep:.<cr>
+nnoremap <space>/ :Unite -start-insert grep:.<cr>
+nnoremap <space>g/ :Unite -start-insert grep:/root/gwgo/source/<cr>
 "管理buffer
 nnoremap <space>l :Unite -start-insert buffer<cr>
 let g:unite_source_history_yank_enable = 1

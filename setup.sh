@@ -15,6 +15,7 @@ ln -s  $(pwd)/tmux.conf ~/.tmux.conf
 ln -s  $(pwd)/tmux.conf.local ~/.tmux.conf.local
 ln -s  $(pwd)/wgetrc ~/.wgetrc
 ln -s  $(pwd)/gitconfig ~/.gitconfig
+ln -s  $(pwd)/agignore ~/.agignore
 
 cp ./neocomp.vim ~/
 
