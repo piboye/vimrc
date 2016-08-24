@@ -320,7 +320,7 @@ nnoremap <space>r :Unite -buffer-name=mru -start-insert file_mru<cr>
 "多文件查找
 nnoremap <space>/ :Unite grep:.<cr>
 "管理buffer
-nnoremap <space>l :Unite -quick-match buffer<cr>
+nnoremap <space>l :Unite -start-insert buffer<cr>
 let g:unite_source_history_yank_enable = 1
 nnoremap <space>y :Unite -buffer-name=yank history/yank<cr>
 nnoremap <space>o :Unite -buffer-name=outline outline<cr>
