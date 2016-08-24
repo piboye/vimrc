@@ -2,6 +2,8 @@ let $GIT_SSL_NO_VERIFY='true'
 set nocompatible              " be iMproved
 filetype off                  " required!
 
+let mapleader=","
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -14,6 +16,8 @@ let g:vundle_default_git_proto = 'https'
 
 " git 工具
 Bundle 'tpope/vim-fugitive'
+" 代码中显示哪些做了修改
+Bundle 'jisaacks/GitGutter'
 
 "目录比较
 Bundle 'will133/vim-dirdiff.git'
@@ -22,7 +26,7 @@ Bundle 'will133/vim-dirdiff.git'
 Bundle 'tComment'
 
 " html zen code
-Bundle 'ZenCoding.vim'
+Bundle 'mattn/emmet-vim'
 
 " MarkDown 文档
 Bundle 'plasticboy/vim-markdown.git'
@@ -34,6 +38,8 @@ Bundle 'DoxygenToolkit.vim'
 " 替换 grep 查找
 Bundle 'ack.vim'
 Bundle 'ag.vim'
+
+
 let g:ag_working_path_mode="r"
 
 "YouCompleteMe 配置文件生成
@@ -59,10 +65,9 @@ let g:ycm_key_invoke_completion = '<C-e>' " 默认是 Ctr-space 开启
 let g:ycm_seed_identifiers_with_syntax=1
 nnoremap <C-t> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-let g:ycm_use_ultisnips_completer=0 
-
+let g:ycm_use_ultisnips_completer=0
 "
-let g:ycm_min_num_of_chars_for_completion=1
+let g:ycm_min_num_of_chars_for_completion=2
 
 " 开启 YCM 基于标签引擎 
 let g:ycm_collect_identifiers_from_tags_files=1
@@ -77,6 +82,16 @@ Bundle 'scrooloose/syntastic'
 "所以禁用它对Python文件的检查
 let g:syntastic_ignore_files=[".*\.py$"]
 
+
+" 自动关闭 引号 括号等
+Bundle 'Raimondi/delimitMate'
+
+" / 搜索的时候可以完成输入
+Bundle 'SearchComplete'
+
+"增强 . 的重复能力
+Bundle 'tpope/vim-repeat'
+
 " Dash 文档
 Bundle 'rizzatti/dash.vim'
 nmap <silent> <leader>d <Plug>DashSearch
@@ -84,7 +99,7 @@ nmap <silent> <leader>d <Plug>DashSearch
 
 " 对当前文件生成一个 Tag 的 列表
 Bundle 'majutsushi/tagbar'
-nnoremap \t :TagbarToggle<CR>
+nnoremap ,t :TagbarToggle<CR>
 
 "去掉尾部空白
 Bundle 'bronson/vim-trailing-whitespace'
@@ -125,20 +140,11 @@ noremap <leader>0 :tablast<cr>
 
 " 快速移动
 Bundle 'EasyMotion'
-let g:EasyMotion_leader_key='<C-h>'
 let g:EasyMotion_smartcase = 1
-map f <C-h>f
-map F <C-h>F
-map t <C-h>t
-map T <C-h>T
-"map w <C-;>w
-"map W <C-;>W
-"map B <C-;>B
-"map b <C-;>b
-"map e <C-;>e
-"map E <C-;>E
-"
-"
+let g:EasyMotion_mapping_f = 'f'
+let g:EasyMotion_mapping_F = 'F'
+"let g:EasyMotion_mapping_t = 't'
+"let g:EasyMotion_mapping_T = 'T'
 
 "ctrlp设置,  查找文件
 Bundle 'kien/ctrlp.vim'
@@ -221,6 +227,8 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 Bundle 'powerline/powerline'
 
 
+
+" 替换 包围的字符， 比如 把 "abc" 换成 'abc'
 Bundle 'tpope/vim-surround'
 
 Bundle 'vim-misc'
@@ -243,7 +251,7 @@ let g:cpp_class_scope_highlight = 1
 
 "Bundle 'a.vim'
 Bundle 'FSwitch'
-command A FSHere
+nnoremap <leader>a :FSHere<cr>
 
 function! OpenOther()
     if expand("%:e") == "cpp"
@@ -265,13 +273,17 @@ Bundle 'Zopedav'
 
 Bundle "SuperTab"
 
+" 可以 对多行 赋值= 进行对齐
+Bundle 'godlygeek/tabular'
+nnoremap <space><tab>= :Tabularize /=<cr>
+nnoremap <space><tab>: :Tabularize /:<cr>
+
+" tmux 导航支持
+"Plugin 'christoomey/vim-tmux-navigator'
+
 
 "Bundle 'vimprj'
-
-
 "python
-
-
 "js
 Bundle 'othree/yajs.vim'
 
@@ -279,12 +291,54 @@ Bundle 'othree/yajs.vim'
 "extended % matching for HTML, LaTeX, and many other languages 
 Bundle 'matchit.zip'
 
-" astyle format
+" astyle format 格式化
 Bundle 'Chiel92/vim-autoformat.git'
 let g:formatprg_cs = "astyle --style=google"
 
 "配色
 Bundle 'tomasr/molokai.git'
+
+"Bundle 'jlanzarotta/bufexplorer'
+
+
+" 多个拷贝
+Bundle 'Shougo/neoyank.vim'
+Bundle 'Shougo/neomru.vim'
+Bundle 'Shougo/unite-outline'
+Bundle 'Shougo/vimproc.vim', {'do':'make'}
+Bundle 'Shougo/unite.vim'
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+let g:unite_source_grep_recursive_opt = ''
+let g:unite_split_rule = "botright"
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+nnoremap <space>u :Unite -start-insert<cr>
+nnoremap <space>p :Unite -start-insert file buffer file_mru bookmark<cr>
+nnoremap <space>e :Unite -buffer-name=files -start-insert file<cr>
+nnoremap <space>r :Unite -buffer-name=mru -start-insert file_mru<cr>
+"多文件查找
+nnoremap <space>/ :Unite grep:.<cr>
+"管理buffer
+nnoremap <space>l :Unite -start-insert buffer<cr>
+let g:unite_source_history_yank_enable = 1
+nnoremap <space>y :Unite -buffer-name=yank history/yank<cr>
+nnoremap <space>o :Unite -buffer-name=outline outline<cr>
+nnoremap <space>b :Unite -buffer-name=bookmark bookmark<cr>
+
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  " Play nice with supertab
+  let b:SuperTabDisabled=1
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction
+
+
+" 多选文本
+Bundle 'terryma/vim-multiple-cursors'
 
 
 filetype plugin indent on     " required!
@@ -344,38 +398,35 @@ set directory=~/backup/,.
 au BufNewFile,BufRead *.ejs set filetype=html
 
 
-"if  has("cscope")
-if 0
+if  has("cscope")
   set csto=1
   set cst
   set nocsverb
   set cscopequickfix=s-,c-,d-,i-,t-,e-
   set csverb
-
     " 查找 C 符号
-    nmap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+    nmap <leader>gs :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
 
     " 查找定义
-    nmap <C-[>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap <leader>gg :cs find g <C-R>=expand("<cword>")<CR><CR>
 
     " 看谁调用了这个函数
-    nmap <C-[>c :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-
-    " 查找字符串
-    nmap <C-[>t :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-
-    " egrep 方式查找 文本
-    nmap <C-[>e :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-
-    "查找这个文件
-    nmap <C-[>f :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
-
-    "查找 谁包含了这个文件
-    nmap <C-[>i :cs find i <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
+    nmap <leader>gc :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
 
     "查找 这个函数调用了哪些函数
-    nmap <C-[>d :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+    nmap <leader>gd :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
 
+    " 查找字符串
+    nmap <leader>gt :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+
+    " egrep 方式查找 文本
+    nmap <leader>ge :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+
+    "查找这个文件
+    nmap <leader>gf :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
+
+    "查找 谁包含了这个文件
+    nmap <leader>gi :cs find i <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
 
 "auto load cscope from root dir
 function! LoadCscope()
@@ -389,7 +440,7 @@ function! LoadCscope()
     endif
 endfunction
 command LoadCscope call LoadCscope()
-"call LoadCscope()
+call LoadCscope()
 endif
 
 function! Blade_build_fast()
@@ -419,7 +470,6 @@ call LoadSession()
 "command LoadSession call LoadSession()
 
 "set autochdir
-
 
 "you spectial define
 if filereadable(expand("~/my.vimrc"))
