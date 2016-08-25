@@ -2,7 +2,7 @@ let $GIT_SSL_NO_VERIFY='true'
 set nocompatible              " be iMproved
 filetype off                  " required!
 
-let mapleader=","
+let mapleader="\<Space>"
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -67,13 +67,10 @@ let g:ycm_seed_identifiers_with_syntax=1
 nnoremap <C-t> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 let g:ycm_use_ultisnips_completer=1
-"
-let g:ycm_min_num_of_chars_for_completion=2
+let g:ycm_min_num_of_chars_for_completion=1
 
 " 开启 YCM 基于标签引擎 
 let g:ycm_collect_identifiers_from_tags_files=1
-
-" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
 set completeopt=menu,preview
 
 "语法检查, clang
@@ -144,10 +141,10 @@ Bundle 'easymotion/vim-easymotion'
 let g:EasyMotion_smartcase = 1
 map  f <Plug>(easymotion-bd-f)
 nmap f <Plug>(easymotion-overwin-f)
-nmap <space>s <Plug>(easymotion-overwin-f2)
+nmap t <Plug>(easymotion-overwin-f2)
 " Move to word
-map  <space>w <Plug>(easymotion-bd-w)
-nmap <space>w <Plug>(easymotion-overwin-w)
+"map  <space>w <Plug>(easymotion-bd-w)
+"nmap <space>w <Plug>(easymotion-overwin-w)
 
 " Move to Line
 "map <Leader>L <Plug>(easymotion-bd-jk)
@@ -187,9 +184,9 @@ noremap <silent><expr> <space>g/ incsearch#go(<SID>config_easyfuzzymotion({'is_s
 
 
 "ctrlp设置,  查找文件
-"Bundle 'kien/ctrlp.vim'
+Bundle 'kien/ctrlp.vim'
 "ctrlpvim/ctrlp.vim 有更新， kien 不更新了
-Bundle 'ctrlpvim/ctrlp.vim'
+"Bundle 'ctrlpvim/ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
 "提速 ctrlp 的匹配速度
 Bundle 'FelikZ/ctrlp-py-matcher'
@@ -197,13 +194,15 @@ Bundle 'FelikZ/ctrlp-py-matcher'
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:100'
 let g:ctrlp_lazy_update = 100
-let g:ctrlp_root_markers = ['BLADE_ROOT', '.prj']
+let g:ctrlp_root_markers = ['BLADE_ROOT', '.prj', '.git']
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_extensions = ['funky', 'tag', 'buffertag', 'quickfix', 'dir',
                           \ 'undo', 'line', 'changes', 'mixed']
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 1
-let g:ctrlp_tabpage_position = 'c'
+let g:ctrlp_tabpage_position = 'ac'
+let g:ctrlp_funky_matchtype = 'path'
+let g:ctrlp_show_hidden = 1
 
 "line search
 nnoremap ,l :CtrlPLine<cr>
@@ -251,8 +250,6 @@ else
                 \ 'link': '',
                 \ }
 endif
-let g:ctrlp_funky_matchtype = 'path'
-let g:ctrlp_show_hidden = 1
 
 set wildignore+=*~
 
@@ -353,7 +350,6 @@ Bundle 'tomasr/molokai.git'
 Bundle 'terryma/vim-expand-region'
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
-nmap <space><space> V
 
 " 多个光标
 Bundle 'terryma/vim-multiple-cursors'
@@ -460,6 +456,18 @@ set directory=~/backup/,.
 
 nnoremap ; :
 
+nnoremap q; q:
+
+" command mode like emacs
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
+
 
 "for ejs template 
 au BufNewFile,BufRead *.ejs set filetype=html
@@ -536,7 +544,7 @@ endfunction
 call LoadSession()
 "command LoadSession call LoadSession()
 
-"set autochdir
+set autochdir
 
 "you spectial define
 if filereadable(expand("~/my.vimrc"))
