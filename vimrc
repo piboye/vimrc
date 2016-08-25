@@ -209,9 +209,6 @@ nnoremap ,l :CtrlPLine<cr>
 
 nnoremap <space>f :CtrlPFunky<cr>
 
-"MRU
-nnoremap <space>m :CtrlPMRU<cr>
-
 "outline
 nnoremap <space>o :CtrlPBufTag<cr>
 
@@ -333,6 +330,7 @@ Bundle 'godlygeek/tabular'
 "python
 "js
 Bundle 'othree/yajs.vim'
+Bundle 'pangloss/vim-javascript'
 
 
 "extended % matching for HTML, LaTeX, and many other languages 
