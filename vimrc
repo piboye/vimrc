@@ -12,6 +12,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 let g:vundle_default_git_proto = 'https'
 
+Bundle 'Shougo/neobundle.vim'
+
 " My bundles here:
 
 " git 工具
@@ -98,7 +100,7 @@ nmap <silent> <leader>d <Plug>DashSearch
 
 " 对当前文件生成一个 Tag 的 列表
 Bundle 'majutsushi/tagbar'
-nnoremap ,t :TagbarToggle<CR>
+nnoremap <space>t :TagbarToggle<CR>
 
 "去掉尾部空白
 Bundle 'bronson/vim-trailing-whitespace'
@@ -123,7 +125,7 @@ let g:UltiSnipsEditSplit="vertical"
 Bundle 'The-NERD-tree'
 Bundle 'jistr/vim-nerdtree-tabs'
 let NERDTreeShowBookmarks=1
-nmap <silent> <leader>n :NERDTreeToggle<CR>
+nmap <silent> <space>n :NERDTreeToggle<CR>
 
 "tab 页切换
 noremap <leader>1 1gt
@@ -142,13 +144,15 @@ Bundle 'easymotion/vim-easymotion'
 let g:EasyMotion_smartcase = 1
 map  f <Plug>(easymotion-bd-f)
 nmap f <Plug>(easymotion-overwin-f)
-nmap <leader>s <Plug>(easymotion-overwin-f2)
-"Move to Line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
+nmap <space>s <Plug>(easymotion-overwin-f2)
 " Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+map  <space>w <Plug>(easymotion-bd-w)
+nmap <space>w <Plug>(easymotion-overwin-w)
+
+" Move to Line
+"map <Leader>L <Plug>(easymotion-bd-jk)
+"nmap <Leader>L <Plug>(easymotion-overwin-line)
+
 
 "增量 search 也支持 easy-motion
 Bundle 'haya14busa/incsearch.vim'
@@ -177,13 +181,15 @@ function! s:config_easyfuzzymotion(...) abort
   \   'is_stay': 1
   \ }), get(a:, 1, {}))
 endfunction
-noremap <silent><expr> <leader>/ incsearch#go(<SID>config_easyfuzzymotion())
-noremap <silent><expr> <leader>?  incsearch#go(<SID>config_easyfuzzymotion({'command': '?'}))
-noremap <silent><expr> <leader>g/ incsearch#go(<SID>config_easyfuzzymotion({'is_stay': 1}))
+noremap <silent><expr> <space>/ incsearch#go(<SID>config_easyfuzzymotion())
+noremap <silent><expr> <space>?  incsearch#go(<SID>config_easyfuzzymotion({'command': '?'}))
+noremap <silent><expr> <space>g/ incsearch#go(<SID>config_easyfuzzymotion({'is_stay': 1}))
 
 
 "ctrlp设置,  查找文件
-Bundle 'kien/ctrlp.vim'
+"Bundle 'kien/ctrlp.vim'
+"ctrlpvim/ctrlp.vim 有更新， kien 不更新了
+Bundle 'ctrlpvim/ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
 "提速 ctrlp 的匹配速度
 Bundle 'FelikZ/ctrlp-py-matcher'
@@ -193,15 +199,35 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10,results:100'
 let g:ctrlp_lazy_update = 100
 let g:ctrlp_root_markers = ['BLADE_ROOT', '.prj']
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_extensions = ['funky', 'tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
-                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
+let g:ctrlp_extensions = ['funky', 'tag', 'buffertag', 'quickfix', 'dir',
+                          \ 'undo', 'line', 'changes', 'mixed']
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 1
-let g:ctrlp_tabpage_position = 'ac'
+let g:ctrlp_tabpage_position = 'c'
+
+"line search
+nnoremap ,l :CtrlPLine<cr>
+
+nnoremap <space>f :CtrlPFunky<cr>
+
+"MRU
+nnoremap <space>m :CtrlPMRU<cr>
+
+"outline
+nnoremap <space>o :CtrlPBufTag<cr>
+
+"buffer
+nnoremap <space>e :CtrlPBuffer<cr>
+
+"quickfix
+nnoremap <space>q :CtrlPQuickfix<cr>
+
+
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
   let g:ackprg = 'ag --vimgrep'
+
 
   let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
         \ --ignore ".*"
@@ -286,7 +312,7 @@ Bundle 'octol/vim-cpp-enhanced-highlight'
 let g:cpp_class_scope_highlight = 1
 
 Bundle 'FSwitch'
-nnoremap <leader>a :FSHere<cr>
+nnoremap <space>a :FSHere<cr>
 
 "c 语言
 Bundle 'CRefVim'
@@ -324,47 +350,53 @@ Bundle 'tomasr/molokai.git'
 
 "Bundle 'jlanzarotta/bufexplorer'
 
+Bundle 'terryma/vim-expand-region'
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+nmap <space><space> V
+
+" 多个光标
+Bundle 'terryma/vim-multiple-cursors'
+
+
+Bundle 'Shougo/neoyank.vim'
 
 " 多个拷贝
-Bundle 'Shougo/neoyank.vim'
-Bundle 'Shougo/neomru.vim'
-Bundle 'Shougo/unite-outline'
-Bundle 'Shougo/vimproc.vim', {'do':'make'}
-Bundle 'Shougo/unite.vim'
-let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-let g:unite_source_grep_recursive_opt = ''
-let g:unite_split_rule = "botright"
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-nnoremap <space>u :Unite -start-insert<cr>
-nnoremap <space>p :Unite -start-insert file buffer file_mru bookmark<cr>
-nnoremap <space>e :Unite -buffer-name=files -start-insert file<cr>
-nnoremap <space>r :Unite -buffer-name=mru -start-insert file_mru<cr>
-nnoremap <space>j :Unite -buffer-name=jump -start-insert jump<cr>
-"多文件查找
-nnoremap <space>/ :Unite -start-insert grep:.<cr>
-nnoremap <space>g/ :Unite -start-insert grep:/root/gwgo/source/<cr>
-"管理buffer
-nnoremap <space>l :Unite -start-insert buffer<cr>
-let g:unite_source_history_yank_enable = 1
-nnoremap <space>y :Unite -buffer-name=yank history/yank<cr>
-nnoremap <space>o :Unite -buffer-name=outline outline<cr>
-nnoremap <space>b :Unite -buffer-name=bookmark bookmark<cr>
+" Bundle 'Shougo/neomru.vim'
+" Bundle 'Shougo/unite-outline'
+" Bundle 'Shougo/vimproc.vim', {'do':'make'}
+" Bundle 'Shougo/unite.vim'
+" let g:unite_source_grep_command = 'ag'
+" let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+" let g:unite_source_grep_recursive_opt = ''
+" let g:unite_split_rule = "botright"
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" call unite#filters#sorter_default#use(['sorter_rank'])
+" nnoremap <space>u :Unite -start-insert<cr>
+" nnoremap <space>p :Unite -start-insert file buffer file_mru bookmark<cr>
+" nnoremap <space>e :Unite -buffer-name=files -start-insert file<cr>
+" nnoremap <space>r :Unite -buffer-name=mru -start-insert file_mru<cr>
+" nnoremap <space>j :Unite -buffer-name=jump -start-insert jump<cr>
+" "多文件查找
+" nnoremap <space>/ :Unite -start-insert grep:.<cr>
+" nnoremap <space>g/ :Unite -start-insert grep:/root/gwgo/source/<cr>
+" "管理buffer
+" nnoremap <space>l :Unite -start-insert buffer<cr>
+" let g:unite_source_history_yank_enable = 1
+" nnoremap <space>y :Unite -buffer-name=yank history/yank<cr>
+" nnoremap <space>o :Unite -buffer-name=outline outline<cr>
+" nnoremap <space>b :Unite -buffer-name=bookmark bookmark<cr>
+"
+" " Custom mappings for the unite buffer
+" autocmd FileType unite call s:unite_settings()
+" function! s:unite_settings()
+"   " Play nice with supertab
+"   let b:SuperTabDisabled=1
+"   " Enable navigation with control-j and control-k in insert mode
+"   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+"   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+" endfunction
 
-" Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-  " Play nice with supertab
-  let b:SuperTabDisabled=1
-  " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-endfunction
-
-
-" 多选文本
-Bundle 'terryma/vim-multiple-cursors'
 
 
 filetype plugin indent on     " required!
@@ -385,9 +417,9 @@ set shiftwidth=4
 set expandtab
 
 " set ignorecase 搜索的时候 忽略大小写, 但会影响补全, set infercase 可以避免
-"set ignorecase
+set ignorecase
 "使用 wildignorecase 也可以防止哦 
-set wildignorecase
+"set wildignorecase
 set infercase
 
 set autoindent
@@ -426,55 +458,57 @@ set encoding=utf-8 fileencodings=ucs-bom,utf-8,gbk,gb18030,latin1 termencoding=u
 set backupdir=~/backup/,.
 set directory=~/backup/,.
 
+nnoremap ; :
+
 
 "for ejs template 
 au BufNewFile,BufRead *.ejs set filetype=html
 
 
-if  has("cscope")
-  set csto=1
-  set cst
-  set nocsverb
-  set cscopequickfix=s-,c-,d-,i-,t-,e-
-  set csverb
-    " 查找 C 符号
-    nmap <leader>gs :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-
-    " 查找定义
-    nmap <leader>gg :cs find g <C-R>=expand("<cword>")<CR><CR>
-
-    " 看谁调用了这个函数
-    nmap <leader>gc :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-
-    "查找 这个函数调用了哪些函数
-    nmap <leader>gd :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-
-    " 查找字符串
-    nmap <leader>gt :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-
-    " egrep 方式查找 文本
-    nmap <leader>ge :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-
-    "查找这个文件
-    nmap <leader>gf :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
-
-    "查找 谁包含了这个文件
-    nmap <leader>gi :cs find i <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
-
-"auto load cscope from root dir
-function! LoadCscope()
-    let cur_dir = expand('%:p:h')
-    let db = findfile("cscope.out", cur_dir . ";")
-    if (!empty(db))
-        let path = strpart(db, 0, match(db, "/cscope.out$"))
-        set nocscopeverbose " suppress 'duplicate connection' error
-        exe "cs add " . db . " " . path
-        set cscopeverbose
-    endif
-endfunction
-command LoadCscope call LoadCscope()
-call LoadCscope()
-endif
+" if  has("cscope")
+"   set csto=1
+"   set cst
+"   set nocsverb
+"   set cscopequickfix=s-,c-,d-,i-,t-,e-
+"   set csverb
+"     " 查找 C 符号
+"     nmap <leader>gs :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"
+"     " 查找定义
+"     nmap <leader>gg :cs find g <C-R>=expand("<cword>")<CR><CR>
+"
+"     " 看谁调用了这个函数
+"     nmap <leader>gc :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"
+"     "查找 这个函数调用了哪些函数
+"     nmap <leader>gd :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"
+"     " 查找字符串
+"     nmap <leader>gt :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"
+"     " egrep 方式查找 文本
+"     nmap <leader>ge :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"
+"     "查找这个文件
+"     nmap <leader>gf :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
+"
+"     "查找 谁包含了这个文件
+"     nmap <leader>gi :cs find i <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
+"
+" "auto load cscope from root dir
+" function! LoadCscope()
+"     let cur_dir = expand('%:p:h')
+"     let db = findfile("cscope.out", cur_dir . ";")
+"     if (!empty(db))
+"         let path = strpart(db, 0, match(db, "/cscope.out$"))
+"         set nocscopeverbose " suppress 'duplicate connection' error
+"         exe "cs add " . db . " " . path
+"         set cscopeverbose
+"     endif
+" endfunction
+" command LoadCscope call LoadCscope()
+" call LoadCscope()
+" endif
 
 function! Blade_build_fast()
     exe "Blade build -pdebug"
