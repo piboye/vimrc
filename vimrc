@@ -33,7 +33,6 @@ Bundle 'mattn/emmet-vim'
 " MarkDown 文档
 Bundle 'plasticboy/vim-markdown.git'
 
-
 " Doxygen
 Bundle 'DoxygenToolkit.vim'
 
