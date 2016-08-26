@@ -19,7 +19,7 @@ alias j='jobs -l'
 alias edit='vim'
 
 alias bb='blade build -pdebug -j8'
-tmux -2 强制使用 256color 
+#tmux -2 强制使用 256color
 alias tmux='tmux -2'
 
 # Source global definitions

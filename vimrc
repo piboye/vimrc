@@ -331,6 +331,7 @@ Bundle 'godlygeek/tabular'
 "js
 Bundle 'othree/yajs.vim'
 Bundle 'pangloss/vim-javascript'
+Bundle 'moll/vim-node'
 
 
 "extended % matching for HTML, LaTeX, and many other languages 
