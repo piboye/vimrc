@@ -67,7 +67,7 @@ let g:ycm_seed_identifiers_with_syntax=1
 nnoremap <C-t> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 let g:ycm_use_ultisnips_completer=1
-let g:ycm_min_num_of_chars_for_completion=1
+let g:ycm_min_num_of_chars_for_completion=2
 
 " 开启 YCM 基于标签引擎 
 let g:ycm_collect_identifiers_from_tags_files=1
