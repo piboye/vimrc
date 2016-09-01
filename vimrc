@@ -584,12 +584,12 @@ command! -complete=dir -nargs=* Cpplint call CppLint('<args>')
 function! My_h_header_setting()
     set filetype=cpp
     let b:fswitchdst  = 'cpp,c'
-    let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/,../src,./src'
+    let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/,../src,./src,./'
 endfunction
 
 function! My_cpp_setting()
     let b:fswitchdst  = 'h'
-    let b:fswitchlocs = 'reg:/src/include/,reg:|src|include/**|,../include,../incl/,..'
+    let b:fswitchlocs = 'reg:/src/include/,reg:|src|include/**|,../include,../incl/,..,./'
 endfunction
 
 " 把 .h 设置成 c++语言
