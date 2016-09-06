@@ -19,7 +19,10 @@ ln -s  $(pwd)/agignore ~/.agignore
 ln -s  $(pwd)/bash_profile ~/.bash_profile
 ln -s  $(pwd)/bashrc ~/.bashrc
 
-cp ./neocomp.vim ~/
+if ! [ -d ~/.undodir ]
+then
+    mkdir ~/.undodir/
+fi
 
 if ! [ -d ~/bin ]
 then

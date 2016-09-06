@@ -2,7 +2,7 @@ let $GIT_SSL_NO_VERIFY='true'
 set nocompatible              " be iMproved
 filetype off                  " required!
 
-let mapleader="\<Space>"
+let mapleader=","
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -269,6 +269,11 @@ Bundle 'mru.vim'
 
 "撤销历史
 Bundle 'mbbill/undotree'
+if has("persistent_undo")
+    set undodir=~/.undodir/
+    set undofile
+endif
+nnoremap <leader>u :UndotreeToggle<cr> 
 
 "Bundle 'showmarks'
 
@@ -353,9 +358,11 @@ vmap <C-v> <Plug>(expand_region_shrink)
 Bundle 'terryma/vim-multiple-cursors'
 
 
-Bundle 'Shougo/neoyank.vim'
+Plugin 'YankRing.vim'
+nnoremap <leader> y :YRShow<cr>
 
 " 多个拷贝
+"Bundle 'Shougo/neoyank.vim'
 " Bundle 'Shougo/neomru.vim'
 " Bundle 'Shougo/unite-outline'
 " Bundle 'Shougo/vimproc.vim', {'do':'make'}
@@ -416,8 +423,6 @@ set ignorecase
 "set wildignorecase
 set infercase
 
-set autoindent
-set smartindent
 set incsearch
 
 set backspace=indent,eol,start
@@ -584,12 +589,13 @@ command! -complete=dir -nargs=* Cpplint call CppLint('<args>')
 function! My_h_header_setting()
     set filetype=cpp
     let b:fswitchdst  = 'cpp,c'
-    let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/,../src,./src,./'
+    let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/,../src,./src,../,./'
 endfunction
 
 function! My_cpp_setting()
+    set filetype=cpp
     let b:fswitchdst  = 'h'
-    let b:fswitchlocs = 'reg:/src/include/,reg:|src|include/**|,../include,../incl/,..,./'
+    let b:fswitchlocs = 'reg:/src/include/,reg:|src|include/**|,../include,../incl/,../,./'
 endfunction
 
 " 把 .h 设置成 c++语言
