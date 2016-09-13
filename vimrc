@@ -40,6 +40,8 @@ Bundle 'DoxygenToolkit.vim'
 Bundle 'ack.vim'
 Bundle 'ag.vim'
 
+Bundle 'itchyny/thumbnail.vim'
+
 
 let g:ag_working_path_mode="r"
 "YouCompleteMe 配置文件生成
@@ -69,7 +71,7 @@ let g:ycm_use_ultisnips_completer=1
 let g:ycm_min_num_of_chars_for_completion=2
 
 " 开启 YCM 基于标签引擎 
-let g:ycm_collect_identifiers_from_tags_files=1
+let g:ycm_collect_identifiers_from_tags_files=0
 set completeopt=menu,preview
 
 "语法检查, clang
@@ -183,10 +185,11 @@ noremap <silent><expr> <space>g/ incsearch#go(<SID>config_easyfuzzymotion({'is_s
 
 
 "ctrlp设置,  查找文件
-Bundle 'kien/ctrlp.vim'
-"ctrlpvim/ctrlp.vim 有更新， kien 不更新了
-"Bundle 'ctrlpvim/ctrlp.vim'
+"Bundle 'kien/ctrlp.vim'
+"ctrlpvim/ctrlp.vim 有更新， kien 不更新了, 但是 ctrlpvim 的好像有问题
+Bundle 'ctrlpvim/ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
+
 "提速 ctrlp 的匹配速度
 Bundle 'FelikZ/ctrlp-py-matcher'
 
@@ -249,6 +252,11 @@ endif
 
 set wildignore+=*~
 
+
+"设置命令行补全行为
+set wildmenu
+set wildmode=longest,full
+
 "common
 
 "识别文件编码
@@ -269,10 +277,10 @@ Bundle 'mru.vim'
 
 "撤销历史
 Bundle 'mbbill/undotree'
-if has("persistent_undo")
-    set undodir=~/.undodir/
-    set undofile
-endif
+" if has("persistent_undo")
+"     set undodir=~/.undodir/
+"     set undofile
+" endif
 nnoremap <leader>u :UndotreeToggle<cr> 
 
 "Bundle 'showmarks'
@@ -348,8 +356,6 @@ let g:formatprg_cs = "astyle --style=google"
 "配色
 Bundle 'tomasr/molokai.git'
 
-"Bundle 'jlanzarotta/bufexplorer'
-
 Bundle 'terryma/vim-expand-region'
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
@@ -357,51 +363,15 @@ vmap <C-v> <Plug>(expand_region_shrink)
 " 多个光标
 Bundle 'terryma/vim-multiple-cursors'
 
-
 Plugin 'YankRing.vim'
-nnoremap <leader> y :YRShow<cr>
-
-" 多个拷贝
-"Bundle 'Shougo/neoyank.vim'
-" Bundle 'Shougo/neomru.vim'
-" Bundle 'Shougo/unite-outline'
-" Bundle 'Shougo/vimproc.vim', {'do':'make'}
-" Bundle 'Shougo/unite.vim'
-" let g:unite_source_grep_command = 'ag'
-" let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-" let g:unite_source_grep_recursive_opt = ''
-" let g:unite_split_rule = "botright"
-" call unite#filters#matcher_default#use(['matcher_fuzzy'])
-" call unite#filters#sorter_default#use(['sorter_rank'])
-" nnoremap <space>u :Unite -start-insert<cr>
-" nnoremap <space>p :Unite -start-insert file buffer file_mru bookmark<cr>
-" nnoremap <space>e :Unite -buffer-name=files -start-insert file<cr>
-" nnoremap <space>r :Unite -buffer-name=mru -start-insert file_mru<cr>
-" nnoremap <space>j :Unite -buffer-name=jump -start-insert jump<cr>
-" "多文件查找
-" nnoremap <space>/ :Unite -start-insert grep:.<cr>
-" nnoremap <space>g/ :Unite -start-insert grep:/root/gwgo/source/<cr>
-" "管理buffer
-" nnoremap <space>l :Unite -start-insert buffer<cr>
-" let g:unite_source_history_yank_enable = 1
-" nnoremap <space>y :Unite -buffer-name=yank history/yank<cr>
-" nnoremap <space>o :Unite -buffer-name=outline outline<cr>
-" nnoremap <space>b :Unite -buffer-name=bookmark bookmark<cr>
-"
-" " Custom mappings for the unite buffer
-" autocmd FileType unite call s:unite_settings()
-" function! s:unite_settings()
-"   " Play nice with supertab
-"   let b:SuperTabDisabled=1
-"   " Enable navigation with control-j and control-k in insert mode
-"   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-"   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-" endfunction
+"避免 ctrlp 组件的冲突
+nnoremap <leader>y :YRShow<cr> 
+let g:yankring_replace_n_pkey = ','
+let g:yankring_replace_n_nkey = '.'
 
 
 
-filetype plugin indent on     " required!
-"
+
 " Brief help
 " :BundleList          - list configured bundles
 " :BundleInstall(!)    - install (update) bundles
@@ -446,7 +416,7 @@ set foldlevel=99
 set nofoldenable
 
 
-set path=.,/usr/include,./include,./inc,./incl,../include,../inc,../incl,
+set path=.,./include,./inc,./incl,../include,../inc,../incl,/usr/include,
 
 
 set number
@@ -547,7 +517,7 @@ endfunction
 call LoadSession()
 "command LoadSession call LoadSession()
 
-set autochdir
+"set autochdir
 
 "you spectial define
 if filereadable(expand("~/my.vimrc"))
