@@ -7,9 +7,9 @@
 	helper = cache
 [http]
 	postBuffer = 524288000
-    proxy = http://web-proxy.oa.com:8080
+    #proxy = http://web-proxy.oa.com:8080
 [https]
-	proxy = http://web-proxy.oa.com:8080
+	#proxy = http://web-proxy.oa.com:8080
 [core]
     packedGitLimit = 512m
     packedGitWindowSize = 512m
