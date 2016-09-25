@@ -319,6 +319,21 @@ let g:cpp_class_scope_highlight = 1
 
 Bundle 'FSwitch'
 nnoremap <space>a :FSHere<cr>
+function! My_h_header_setting()
+    set filetype=cpp
+    let b:fswitchdst  = 'cpp,c'
+    let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/,../src,./src,../,./'
+endfunction
+
+function! My_cpp_setting()
+    set filetype=cpp
+    let b:fswitchdst  = 'h'
+    let b:fswitchlocs = 'reg:/src/include/,reg:|src|include/**|,../include,../incl/,../,./'
+endfunction
+
+" 把 .h 设置成 c++语言
+autocmd BufNewFile,BufReadPost *.h call My_h_header_setting()
+autocmd BufNewFile,BufReadPost *.cpp call My_cpp_setting()
 
 "c 语言
 Bundle 'CRefVim'
@@ -366,8 +381,8 @@ Bundle 'terryma/vim-multiple-cursors'
 Plugin 'YankRing.vim'
 "避免 ctrlp 组件的冲突
 nnoremap <leader>y :YRShow<cr> 
-let g:yankring_replace_n_pkey = ','
-let g:yankring_replace_n_nkey = '.'
+let g:yankring_replace_n_pkey = '^[,'
+let g:yankring_replace_n_nkey = '^[.'
 
 
 
@@ -556,21 +571,6 @@ function! CppLint(...)
 endfunction
 command! -complete=dir -nargs=* Cpplint call CppLint('<args>')
 
-function! My_h_header_setting()
-    set filetype=cpp
-    let b:fswitchdst  = 'cpp,c'
-    let b:fswitchlocs = 'reg:/include/src/,reg:/include.*/src/,../src,./src,../,./'
-endfunction
-
-function! My_cpp_setting()
-    set filetype=cpp
-    let b:fswitchdst  = 'h'
-    let b:fswitchlocs = 'reg:/src/include/,reg:|src|include/**|,../include,../incl/,../,./'
-endfunction
-
-" 把 .h 设置成 c++语言
-autocmd BufNewFile,BufReadPost *.h call My_h_header_setting()
-autocmd BufNewFile,BufReadPost *.cpp call My_cpp_setting()
 
 "保存文件的上一次位置, 好神奇， 没看明白
 if has("autocmd")

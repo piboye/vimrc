@@ -9,9 +9,11 @@ fi
 
 
 GIT_SSL_NO_VERIFY=true
-PATH=$HOME/bin:$HOME/soft/clang+llvm-3.3-amd64-Ubuntu-10.04.4/bin:$PATH
+PATH=$HOME/bin:$HOME/soft/clang+llvm-3.3-amd64-Ubuntu-10.04.4/bin:/usr/local/node/bin:$PATH
 
 export PATH
+
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
 
 LC_ALL=zh_CN.utf8
 export LC_ALL
