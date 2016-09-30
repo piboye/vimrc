@@ -359,6 +359,7 @@ Bundle 'godlygeek/tabular'
 Bundle 'othree/yajs.vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'moll/vim-node'
+Plugin 'marijnh/tern_for_vim'
 
 
 "extended % matching for HTML, LaTeX, and many other languages 
