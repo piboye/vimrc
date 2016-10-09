@@ -15,7 +15,7 @@ export PATH
 
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
 
-LC_ALL=zh_CN.utf8
+LC_ALL=zh_CN.utf-8
 export LC_ALL
 
 DISTCC_HOSTS="localhost 10.12.234.229 10.12.234.139"

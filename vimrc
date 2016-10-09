@@ -13,6 +13,7 @@ Bundle 'gmarik/vundle'
 let g:vundle_default_git_proto = 'https'
 
 Bundle 'Shougo/neobundle.vim'
+Bundle 'tpope/vim-sensible'
 
 " My bundles here:
 
@@ -338,7 +339,7 @@ autocmd BufNewFile,BufReadPost *.cpp call My_cpp_setting()
 "c 语言
 Bundle 'CRefVim'
 
-"stl 
+"stl
 Bundle 'stlrefvim'
 
 "WebDav
@@ -350,16 +351,34 @@ Bundle "SuperTab"
 Bundle 'godlygeek/tabular'
 
 " tmux 导航支持
-"Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'christoomey/vim-tmux-navigator'
 
 
 "Bundle 'vimprj'
 "python
 "js
-Bundle 'othree/yajs.vim'
-Bundle 'pangloss/vim-javascript'
+
 Bundle 'moll/vim-node'
-Plugin 'marijnh/tern_for_vim'
+Plugin 'ternjs/tern_for_vim'
+let g:tern_map_keys=1
+let g:tern_show_argument_hints = 'on_hold'
+autocmd FileType javascript setlocal omnifunc=tern#Complete
+
+
+Bundle 'othree/yajs.vim'
+"Bundle 'pangloss/vim-javascript'
+
+" ES 7 语法支持
+Plugin 'othree/es.next.syntax.vim'
+
+" JSON 支持
+Plugin 'elzr/vim-json'
+
+" js 库语法高亮
+Plugin 'othree/javascript-libraries-syntax.vim'
+
+" js 函数参数完成
+Plugin 'othree/jspc.vim'
 
 
 "extended % matching for HTML, LaTeX, and many other languages 
@@ -542,6 +561,27 @@ endif
 augroup filetype
     autocmd! BufRead,BufNewFile BUILD set filetype=blade
 augroup end
+
+" 解决粘贴代码， 自动缩进的问题
+function! WrapForTmux(s)
+  if !exists('$TMUX')
+    return a:s
+  endif
+
+  let tmux_start = "\<Esc>Ptmux;"
+  let tmux_end = "\<Esc>\\"
+
+  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+endfunction
+let &t_SI .= WrapForTmux("\<Esc>[?2004h")
+let &t_EI .= WrapForTmux("\<Esc>[?2004l")
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
 
 autocmd BufRead,BufNewFile *.h set filetype=cpp
 

@@ -20,11 +20,9 @@ cscope.*
 *.csv
 *.tsv
 *.tmp*
-*.js
 *.css
 *.scss
 *.old
-*.json
 *.html
 *.plist
 *.pdf
