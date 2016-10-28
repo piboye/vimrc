@@ -33,13 +33,20 @@ Bundle 'mattn/emmet-vim'
 
 " MarkDown 文档
 Bundle 'plasticboy/vim-markdown.git'
+Bundle 'kannokanno/previm'
+augroup PrevimSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+augroup END
+
+Bundle 'tyru/open-browser.vim'
 
 " Doxygen
 Bundle 'DoxygenToolkit.vim'
 
 " 替换 grep 查找
 Bundle 'ack.vim'
-Bundle 'ag.vim'
+"Bundle 'ag.vim'
 
 Bundle 'itchyny/thumbnail.vim'
 
@@ -366,7 +373,7 @@ autocmd FileType javascript setlocal omnifunc=tern#Complete
 
 
 Bundle 'othree/yajs.vim'
-"Bundle 'pangloss/vim-javascript'
+Bundle 'pangloss/vim-javascript'
 
 " ES 7 语法支持
 Plugin 'othree/es.next.syntax.vim'
