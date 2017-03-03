@@ -8,6 +8,8 @@ fi
 
 mv ~/.tmux.conf tmux_conf_bak_$(whoami)_$(date +%Y%m%d)
 mv ~/.tmux.conf.local tmux_conf_local_bak_$(whoami)_$(date +%Y%m%d)
+mv ~/.bash_profile bash_profile_$(whoami)_$(date +%Y%m%d)
+mv ~/.bashrc bash_rc_$(whoami)_$(date +%Y%m%d)
 
 ln -s  $(pwd)/vimrc ~/.vimrc
 

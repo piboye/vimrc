@@ -26,3 +26,5 @@ DISTCC_HOSTS="localhost 10.12.234.229 10.12.234.139"
 #export DISTCC_HOSTS
 #export CC
 #export CXX
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
