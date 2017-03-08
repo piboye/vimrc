@@ -3,6 +3,7 @@
 # User specific aliases and functions
 
 alias lsl="ls -lhFA | less"
+alias l="ls -la"
 
 alias l= "ls -al"
 alias j="autojump"
