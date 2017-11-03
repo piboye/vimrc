@@ -83,7 +83,7 @@ let g:ycm_collect_identifiers_from_tags_files=0
 set completeopt=menu,preview
 
 "语法检查, clang
-Bundle 'scrooloose/syntastic'
+"Bundle 'scrooloose/syntastic'
 "因为Python已经有pylint来检查,
 "而且syntastic检查Python会在保存时有很长时间的卡顿,
 "所以禁用它对Python文件的检查
