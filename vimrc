@@ -387,6 +387,8 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 " js 函数参数完成
 Plugin 'othree/jspc.vim'
 
+Bundle "fatih/vim-go"
+
 
 "extended % matching for HTML, LaTeX, and many other languages 
 Bundle 'matchit.zip'

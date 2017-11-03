@@ -9,7 +9,7 @@ fi
 
 
 GIT_SSL_NO_VERIFY=true
-PATH=$HOME/bin:$HOME/soft/clang+llvm-3.3-amd64-Ubuntu-10.04.4/bin:/usr/local/node/bin:$PATH
+PATH=$HOME/bin:$PATH
 
 export PATH
 
