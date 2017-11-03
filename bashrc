@@ -35,3 +35,9 @@ if [ -f ~/.bashrc.local ]; then
 fi
 
 test -s ~/bin/bladefunctions && . ~/bin/bladefunctions || true
+
+export PATH=/data/user00/soft/clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-14.04/bin:$PATH
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+export TEMP=/data/tmp
