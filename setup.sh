@@ -65,7 +65,7 @@ fi
 if ! [ -e ~/bin/ack ] 
 then
     echo "install ack"
-    curl http://beyondgrep.com/ack-2.12-single-file > ~/bin/ack && chmod 0755 ~/bin/ack
+    curl https://beyondgrep.com/ack-v3.4.0 > ~/bin/ack && chmod 0755 ~/bin/ack
 fi
 
 if ! [ -e ~/bin/cscope.sh ] 
